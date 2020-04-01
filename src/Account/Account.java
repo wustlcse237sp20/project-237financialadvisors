@@ -5,8 +5,6 @@ import java.util.List;
 
 public class Account {
 
-	// List<String> Accounts = new ArrayList<String>();
-
 private String bankName;
 private String accountType;
 private double accountBalance;
@@ -29,7 +27,7 @@ public Account(String accountType, String bankName, double interestRate, double 
 	}
 
 	public double getBalance() {
-		return accountBalance; // this?
+		return accountBalance;
 	}
 
 	public double getInterestRate() {
@@ -45,7 +43,7 @@ public Account(String accountType, String bankName, double interestRate, double 
 	}
 
 	public boolean withdraw(double amount) {
-		if ((amount > 0.0) && ((accountBalance - amount) > (this.overdrawAllowed)*-1)) {
+		if ((amount > 0.0) && ((accountBalance - amount) >= (this.overdrawAllowed)*-1)) {
 			accountBalance = accountBalance - amount;
 			return true;
 		}
