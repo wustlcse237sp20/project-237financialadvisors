@@ -1,8 +1,5 @@
 package Account;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Account {
 
 private String bankName;
@@ -10,12 +7,14 @@ private String accountType;
 private double accountBalance;
 private double interestRate;
 private double overdrawAllowed;
+private int accountNumber;
 
-public Account(String accountType, String bankName, double interestRate, double overdrawAllowed) {
+public Account(String accountType, String bankName, double interestRate, double overdrawAllowed, int accountNumber) {
 	this.accountType = accountType;
 	this.bankName = bankName;
 	this.interestRate = interestRate;
 	this.overdrawAllowed = overdrawAllowed;
+	this.accountNumber = accountNumber;
 }
 
 	public String getNameOfBank() {
@@ -33,7 +32,16 @@ public Account(String accountType, String bankName, double interestRate, double 
 	public double getInterestRate() {
 		return interestRate;
 	}
-
+	
+	public int getAccountNumber() {
+		return accountNumber;
+	}
+	
+	/**
+	 * 
+	 * @param amount
+	 * @return true if deposit is successful, false otherwise 
+	 */
 	public boolean deposit(double amount) {
 		if (amount > 0.0) {
 			accountBalance = accountBalance + amount;
@@ -41,13 +49,22 @@ public Account(String accountType, String bankName, double interestRate, double 
 	    }
 		return false;
 	}
-
+	
+	/**
+	 * 
+	 * @param amount
+	 * @return true if withdraw is successful, false otherwise
+	 */
 	public boolean withdraw(double amount) {
 		if ((amount > 0.0) && ((accountBalance - amount) >= (this.overdrawAllowed)*-1)) {
 			accountBalance = accountBalance - amount;
 			return true;
 		}
 		return false;
+	}
+	
+	public String toString() {
+		return accountType + ", " + bankName + ", #" + accountNumber + ", Balance: " + accountBalance + ", Interest Rate:" + interestRate + ", " + "Amount allowed to overdraw: " + overdrawAllowed; 
 	}
 
 }
