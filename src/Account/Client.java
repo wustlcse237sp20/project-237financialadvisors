@@ -2,60 +2,93 @@ package Account;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class Client {
-	static List<Account> Accounts = new ArrayList<Account>();
+	List<Account> Accounts = new ArrayList<Account>();
+	Double totalWealth;
+	Double ARR;
+	int age;
 
-	public Client() {
-		//		Accounts = new ArrayList<Account>(5);
+	public Client(List<Account> Accounts, int age) {
+		this.Accounts = Accounts;
+		this.age = age;
+		this.totalWealth = calculateTotalWealth();
+		this.ARR = calculateAverageRateOfReturn();
 	}
-	public static void generateAccounts() {
+
+	public int getAge() {
+		return age;
+	}
+	public Double calculateTotalWealth() {
+		Double totalWealth = 0.0;
 		for (int i =0; i<Accounts.size(); i++) {
+			totalWealth = totalWealth + Accounts.get(i).getBalance();
+		}
+		System.out.println("Your total wealth is: $" + totalWealth);
+		return totalWealth;
+	}
+	
+	public Double getTotalWealth() {
+		return totalWealth;
+	}
+	
+	public Double getAverageRateOfReturn() {
+		return ARR;
+	}
+
+	public List<Account> getAccounts() {
+		return Accounts;
+	}
+
+	public void generateAccounts() {
+		for (int i =0; i<Accounts.size(); i++) {
+			System.out.println("Account " + (i+1) + ":");
 			System.out.println(Accounts.get(i));
 		}
 	}
 
-	public static void generateSummary() {
-
-	}
-	
-	public static void calculateTotal() {
-		
-	}
-	
-	public static void calculatePercentages() {
-		
-	}
-	public static void main(String[] args) {
-		String accountType = "";
-		String bankName = "";
-		Double interest = 0.0;
-		Double overdraw = 0.0;
-		int accountNumber = 0;
-		// Double accountBalance = 0.0;
-		Scanner type = new Scanner(System.in);
-		System.out.println("How many accounts do you have to add?");
-		int number = type.nextInt();
-		for (int i = 1; i<=number; i++) {
-			System.out.println("Account " + i + ":");
-			System.out.println("Enter the type of account e.g. checkings, savings, stocks, bonds: ");
-			accountType = type.next();
-			System.out.println("Enter the name of the bank: ");
-			bankName = type.next();
-			System.out.println("Enter the account number: ");
-			accountNumber = type.nextInt();
-			System.out.println("Enter the interest rate: ");
-			interest = type.nextDouble();
-			System.out.println("How much can you overdraw in this account?");
-			overdraw = type.nextDouble();
-			Account newAccount = new Account(accountType, bankName, interest, overdraw, accountNumber);
-			// System.out.println(accountType + " " + bankName + " " + interest + " " + overdraw);
-			Accounts.add(newAccount);
-			System.out.flush();
+	public void calculatePercentagesByAccount() {
+		Double percentage = 0.0;
+		for (int i =0; i<Accounts.size(); i++) {
+			percentage = ((Accounts.get(i).getBalance())/totalWealth)*1.00*100;
+			System.out.print(percentage + "% of your wealth is in account " + (i+1) + ", ");
 		}
-		type.close();
-		generateAccounts();
-		generateSummary();
 	}
+
+	public double calculateAverageRateOfReturn() {
+		Double ARR = 0.0;
+		for (int i=0; i<Accounts.size(); i++) {
+			ARR = ARR + (Accounts.get(i).getInterestRate())*Accounts.get(i).getBalance();
+		}
+		ARR = ARR/(totalWealth);
+		System.out.println("Your average rate of return across all accounts is: " +  ARR);
+		return ARR;
+	}
+
+//	public void calculatePercentagesByAccountType() {
+//		double savingsPercentage = 0.0;
+//		double checkingsPercentage = 0.0;
+//		double stocksPercentage = 0.0;
+//		double bondsPercentage = 0.0;
+//		for (int i=0; i<Accounts.size();i++) {
+//			if (Accounts.get(i).getAccountType() == "savings") {
+//				savingsPercentage = savingsPercentage + Accounts.get(i).getBalance();
+//			}
+//			if (Accounts.get(i).getAccountType() == "checkings") {
+//				checkingsPercentage = checkingsPercentage + Accounts.get(i).getBalance();
+//			}
+//			if (Accounts.get(i).getAccountType() == "stocks") {
+//				stocksPercentage = stocksPercentage + Accounts.get(i).getBalance();
+//			}
+//			if (Accounts.get(i).getAccountType() == "bonds") {
+//				bondsPercentage = bondsPercentage + Accounts.get(i).getBalance();
+//			}	
+//		}
+//		System.out.println((savingsPercentage/totalWealth) + "% of your wealth is in savings accounts");
+//		System.out.println((checkingsPercentage/totalWealth) + "% of your wealth is in checkings accounts");
+//		System.out.println((stocksPercentage/totalWealth) + "% of your wealth is in stocks accounts");
+//		System.out.println((bondsPercentage/totalWealth) + "% of your wealth is in bonds accounts");
+//	}
+
+
 }
