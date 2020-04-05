@@ -11,13 +11,13 @@ public class InterestRate {
 	 * @param years number of years for which interest rate is applied
 	 * @param compoundPerYear number of times interest rate is applied per year
 	 */
-	public void interestRateCalculator (double accountBalance, double interestRate, int years, int compoundPerYear) {
+	public void interestRateCalculator (double accountBalance, double interestRate, int years) {
 		
 		double principalBalance = accountBalance;
 		
 		for (int i = 0; i < years; i++){ 
 			
-			accountBalance = principalBalance * Math.pow((1 + (interestRate/compoundPerYear)), years);		
+			accountBalance = principalBalance * Math.pow((1 + (interestRate/3)), years);		
 		}
 		
 	}
