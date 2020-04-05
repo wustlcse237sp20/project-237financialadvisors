@@ -11,6 +11,8 @@ public class FinancialAdvisorTests {
 
 	@Test
 	public void testOptimalRiskByAgeBracket() {
-		fail("Not yet implemented");
+		Client c = new Client(30);
+		assertTrue(c.optimalRiskByAgeBracket(5.0));
+		assertFalse(c.optimalRiskByAgeBracket(15.0));
 	}
 }
