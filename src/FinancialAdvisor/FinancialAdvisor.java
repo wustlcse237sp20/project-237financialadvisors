@@ -43,6 +43,8 @@ public class FinancialAdvisor {
 			averageRateOfReturn = 5.0;
 		}
 		
+		System.out.print("Your optimal ARR for your age bracket is: " + averageRateOfReturn);
+		
 		return averageRateOfReturn;
 	}
 }
