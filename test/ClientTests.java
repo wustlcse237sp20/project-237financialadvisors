@@ -69,10 +69,23 @@ public class ClientTests {
 		ps.close();
 	}
 	
-//	@Test
-//	public void testCalculatePercentagesByAccountType() {
-//
-//	}
+	@Test
+	public void testNumberOfATypeOfAccount() {
+		List<Account> Accounts = new ArrayList<Account>();
+		Account a = new Account("savings", "chase", 0.2, 500.0, 12345678);
+		Accounts.add(a);
+		Account b = new Account("checkings", "boa", 0.0, 100.0, 99876554);
+		Accounts.add(b);
+		Account c = new Account("savings", "chase", 0.2, 500.0, 28374958);
+		Accounts.add(c);
+		Client client = new Client(Accounts, 30);
+		
+		assertEquals(2, client.numberOfATypeOfAccount(client, "savings"));
+	}
 	
+	@Test
+	public void testFindHighestInterestRate() {
+		assertTrue(one.findHighestInterestRate(one.getAccounts()) == 7.0);
+	}
 	
 }
