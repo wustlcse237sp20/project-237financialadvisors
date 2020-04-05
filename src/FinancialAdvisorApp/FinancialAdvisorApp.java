@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import Account.Account;
 import Account.Client;
+import FinancialAdvisor.FinancialAdvisor;
 
 public class FinancialAdvisorApp {
 
@@ -16,7 +17,8 @@ public class FinancialAdvisorApp {
 		int number = type.nextInt();
 		System.out.println("How old are you?");
 		int age = type.nextInt();
-		Client a = new Client(Accounts, age);
+		Client newClient = new Client(Accounts, age);
+		FinancialAdvisor financialAdvisor = new FinancialAdvisor(newClient);
 		for (int i = 1; i<=number; i++) {
 			System.out.println("Account " + i + ":");
 			System.out.println("Enter the type of account e.g. checkings, savings, stocks, bonds: ");
@@ -37,9 +39,11 @@ public class FinancialAdvisorApp {
 			System.out.flush();
 		}
 		type.close();
-		a.getAverageRateOfReturn();
-		a.generateAccounts();
-		a.calculatePercentagesByAccount();
+		newClient.getAverageRateOfReturn();
+		newClient.generateAccounts();
+		newClient.calculatePercentagesByAccount();
+		financialAdvisor.optimalRiskByAgeBracket(newClient);
+		financialAdvisor.consolidateAccounts(newClient);
 		//a.calculatePercentagesByAccountType();
 	}
 }

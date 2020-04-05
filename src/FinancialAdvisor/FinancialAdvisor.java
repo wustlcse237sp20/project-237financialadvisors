@@ -29,12 +29,12 @@ public class FinancialAdvisor {
 	//can be broken up into multiple methods
 	public boolean consolidateAccounts(Client client) {
 		boolean accountConsolidated = false;
+		String outputMessage1 = "";
+		String outputMessage2 = "";
 		List<Account> clientAccounts = client.getAccounts();
 		List<Account> clientSavingsAccounts = new ArrayList<Account>();
 		List<Account> clientCheckingAccounts = new ArrayList<Account>();
-		//2 array list, go through and add to the array list
-		//then .get the interest rate and find the highest interest rate and print the highest one
-		
+
 		if (client.numberOfATypeOfAccount(client, "checkings") > 1) {
 			double checkingsRate = 0.0;
 			for (int i = 0; i < clientAccounts.size(); i++) {
@@ -44,7 +44,7 @@ public class FinancialAdvisor {
 					}
 			}
 			checkingsRate = client.findHighestInterestRate(clientCheckingAccounts);
-			System.out.print("The highest checkings account interest rate is " + checkingsRate + ". You should transfer funds to the checkings account with this interest rate.");
+			outputMessage1 = "The highest checkings account interest rate is " + checkingsRate + ". You should transfer funds to the checkings account with this interest rate.";
 			accountConsolidated = true;
 		}
 		
@@ -57,10 +57,12 @@ public class FinancialAdvisor {
 				}
 			}
 			savingsRate = client.findHighestInterestRate(clientSavingsAccounts);
-			System.out.print("The highest savings account interest rate is " + savingsRate + ". You should transfer funds to the savings account with this interest rate.");
+			outputMessage2 = "The highest savings account interest rate is " + savingsRate + ". You should transfer funds to the savings account with this interest rate.";
 			accountConsolidated = true;
 		}
-
+		
+		System.out.print(outputMessage1);
+		System.out.print(outputMessage2);
 		return accountConsolidated;
 	}
 	
@@ -104,7 +106,7 @@ public class FinancialAdvisor {
 			compareOptimalAndClientARR = "equal to";
 		}
 		
-		System.out.print("Your current ARR is: " + currentClientARR + "%, which is " + compareOptimalAndClientARR + "the optimal ARR of " + averageRateOfReturn + "% for your age bracket.");
+		System.out.print("Your current ARR is: " + currentClientARR + "%, which is " + compareOptimalAndClientARR + " the optimal ARR of " + averageRateOfReturn + "% for your age bracket.");
 		
 		return averageRateOfReturn;
 	}
