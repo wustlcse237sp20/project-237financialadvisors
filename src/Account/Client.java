@@ -24,11 +24,11 @@ public class Client {
 		return age;
 	}
 	
-	public Double getTotalWealth() {
+	public double getTotalWealth() {
 		return totalWealth;
 	}
 	
-	public Double getAverageRateOfReturn() {
+	public double getAverageRateOfReturn() {
 		return ARR;
 	}
 
@@ -48,8 +48,8 @@ public class Client {
 	 * @param 
 	 * @return the client's total wealth (int)
 	 */
-	public Double calculateTotalWealth() {
-		Double totalWealth = 0.0;
+	public double calculateTotalWealth() {
+		double totalWealth = 0.0;
 		for (int i =0; i<Accounts.size(); i++) {
 			totalWealth = totalWealth + Accounts.get(i).getBalance();
 		}
