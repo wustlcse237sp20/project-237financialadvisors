@@ -2,20 +2,20 @@ package Account;
 
 public class Account {
 
-private String bankName;
-private String accountType;
-private double accountBalance;
-private double interestRate;
-private double overdrawAllowed;
-private int accountNumber;
+	private String bankName;
+	private String accountType;
+	private double accountBalance;
+	private double interestRate;
+	private double overdrawAllowed;
+	private int accountNumber;
 
-public Account(String accountType, String bankName, double interestRate, double overdrawAllowed, int accountNumber) {
-	this.accountType = accountType;
-	this.bankName = bankName;
-	this.interestRate = interestRate;
-	this.overdrawAllowed = overdrawAllowed;
-	this.accountNumber = accountNumber;
-}
+	public Account(String accountType, String bankName, double interestRate, double overdrawAllowed, int accountNumber) {
+		this.accountType = accountType;
+		this.bankName = bankName;
+		this.interestRate = interestRate;
+		this.overdrawAllowed = overdrawAllowed;
+		this.accountNumber = accountNumber;
+	}
 
 	public String getNameOfBank() {
 		return bankName;
@@ -32,11 +32,11 @@ public Account(String accountType, String bankName, double interestRate, double 
 	public double getInterestRate() {
 		return interestRate;
 	}
-	
+
 	public int getAccountNumber() {
 		return accountNumber;
 	}
-	
+
 	/**
 	 * 
 	 * @param amount
@@ -46,10 +46,10 @@ public Account(String accountType, String bankName, double interestRate, double 
 		if (amount > 0.0) {
 			accountBalance = accountBalance + amount;
 			return true;
-	    }
+		}
 		return false;
 	}
-	
+
 	/**
 	 * 
 	 * @param amount
@@ -62,7 +62,7 @@ public Account(String accountType, String bankName, double interestRate, double 
 		}
 		return false;
 	}
-	
+
 	public String toString() {
 		return accountType + ", " + bankName + ", #" + accountNumber + ", Balance: " + accountBalance + ", Interest Rate:" + interestRate + ", " + "Amount allowed to overdraw: " + overdrawAllowed; 
 	}
