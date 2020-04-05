@@ -18,6 +18,12 @@ public class FinancialAdvisor {
 		return client;
 	}
 	
+	/**
+	 * Consolidates the client's accounts, checking for multiple accounts of the same type and determining
+	 * which has a higher interest rate then moving money around to optimize the client portfolio
+	 * @param client
+	 * @return true if action completed, false if not
+	 */
 	public boolean consolidateAccounts(Client client) {
 		boolean accountConsolidated = false;
 		List<Account> clientAccounts = client.getAccounts();
@@ -42,7 +48,11 @@ public class FinancialAdvisor {
 	}
 	
 
-	
+	/**
+	 * Determines the optimal ARR for the client and compares it to the current ARR (prints out a statement for client to see)
+	 * @param client
+	 * @return client's optimal average rate of return
+	 */
 	public double optimalRiskByAgeBracket(Client client) {
 		double averageRateOfReturn = 0.0;
 		double currentClientARR = client.calculateAverageRateOfReturn();
