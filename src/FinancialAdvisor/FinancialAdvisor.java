@@ -46,6 +46,7 @@ public class FinancialAdvisor {
 	public double optimalRiskByAgeBracket(Client client) {
 		double averageRateOfReturn = 0.0;
 		double currentClientARR = client.calculateAverageRateOfReturn();
+		String compareOptimalAndClientARR = "";
 		
 		if (client.getAge() < 18) {
 			return averageRateOfReturn;
@@ -66,7 +67,17 @@ public class FinancialAdvisor {
 			averageRateOfReturn = 5.0;
 		}
 		
-		System.out.print("Your optimal ARR for your age bracket is: " + averageRateOfReturn + "%. Your current ARR is " + currentClientARR + "%.");
+		if (currentClientARR > averageRateOfReturn) {
+			compareOptimalAndClientARR = "greater than";
+		}
+		else if (currentClientARR < averageRateOfReturn) {
+			compareOptimalAndClientARR = "less than";
+		}
+		else if (currentClientARR == averageRateOfReturn) {
+			compareOptimalAndClientARR = "equal to";
+		}
+		
+		System.out.print("Your current ARR is: " + currentClientARR + "%, which is " + compareOptimalAndClientARR + "the optimal ARR of " + averageRateOfReturn + "% for your age bracket.");
 		
 		return averageRateOfReturn;
 	}
