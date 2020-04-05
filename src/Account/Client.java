@@ -65,7 +65,7 @@ public class Client {
 	public void calculatePercentagesByAccount() {
 		double percentage = 0.0;
 		for (int i =0; i<Accounts.size(); i++) {
-			percentage = Math.round((Accounts.get(i).getBalance()/totalWealth));
+			percentage = Math.round((Accounts.get(i).getBalance()/totalWealth)*10000.0)/100.0;
 			System.out.print(percentage + "% of your wealth is in account " + (i+1) + ", ");
 		}
 	}
@@ -80,7 +80,7 @@ public class Client {
 		for (int i=0; i<Accounts.size(); i++) {
 			ARR = ARR + (Accounts.get(i).getInterestRate())*Accounts.get(i).getBalance();
 		}
-		ARR = Math.round(ARR/(totalWealth));
+		ARR = Math.round((ARR/(totalWealth))*100.0)/100.0;
 		System.out.println("Your average rate of return across all accounts is: " +  ARR);
 		return ARR;
 	}
@@ -103,6 +103,11 @@ public class Client {
 		return numberOfThisAccountType;
 	}
 	
+	/**
+	 * Finds the highest interest rate in a list of accounts
+	 * @param Accounts
+	 * @return interest rate (double)
+	 */
 	public double findHighestInterestRate(List<Account> Accounts) {
 		double highestInterestRate = 0.0;
 		for (int i = 0; i < Accounts.size(); i++) {

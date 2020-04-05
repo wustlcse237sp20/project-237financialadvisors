@@ -36,21 +36,29 @@ public class FinancialAdvisor {
 		//then .get the interest rate and find the highest interest rate and print the highest one
 		
 		if (client.numberOfATypeOfAccount(client, "checkings") > 1) {
+			double checkingsRate = 0.0;
 			for (int i = 0; i < clientAccounts.size(); i++) {
 					
 					if (clientAccounts.get(i).getAccountType() == "checkings") {
 						clientCheckingAccounts.add(clientAccounts.get(i));
 					}
 			}
+			checkingsRate = client.findHighestInterestRate(clientCheckingAccounts);
+			System.out.print("The highest checkings account interest rate is " + checkingsRate);
+			accountConsolidated = true;
 		}
 		
 		if (client.numberOfATypeOfAccount(client, "savings") > 1) {
+			double savingsRate = 0.0;
 			for (int i = 0; i < clientAccounts.size(); i++) {
 				
 				if (clientAccounts.get(i).getAccountType() == "savings") {
 					clientSavingsAccounts.add(clientAccounts.get(i));
 				}
 			}
+			savingsRate = client.findHighestInterestRate(clientSavingsAccounts);
+			System.out.print("The highest savings account interest rate is " + savingsRate);
+			accountConsolidated = true;
 		}
 
 		return accountConsolidated;
