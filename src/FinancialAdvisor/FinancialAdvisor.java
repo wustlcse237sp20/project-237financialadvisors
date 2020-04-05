@@ -19,24 +19,22 @@ public class FinancialAdvisor {
 		List<Account> clientAccounts = client.getAccounts();
 		
 		for (int i = 0; i < clientAccounts.size(); i++) {
-			if (clientAccounts.get(i).getAccountType() == "checkings") {
 				
-			}
-			if (clientAccounts.get(i).getAccountType() == "savings") {
+				if (clientAccounts.get(i).getAccountType() == "checkings") {
+				}
 				
-			}
-			if (clientAccounts.get(i).getAccountType() == "stocks") {
-				
-			}
-			if (clientAccounts.get(i).getAccountType() == "bonds") {
-				
-			}
+				if (clientAccounts.get(i).getAccountType() == "savings") {
+					
+				}
 		}
 		
 	}
 	
+
+	
 	public double optimalRiskByAgeBracket(Client client) {
 		double averageRateOfReturn = 0.0;
+		double currentClientARR = client.calculateAverageRateOfReturn();
 		
 		if (client.getAge() < 18) {
 			return averageRateOfReturn;
@@ -57,7 +55,7 @@ public class FinancialAdvisor {
 			averageRateOfReturn = 5.0;
 		}
 		
-		System.out.print("Your optimal ARR for your age bracket is: " + averageRateOfReturn + "%");
+		System.out.print("Your optimal ARR for your age bracket is: " + averageRateOfReturn + "%. Your current ARR is " + currentClientARR + "%.");
 		
 		return averageRateOfReturn;
 	}
