@@ -65,6 +65,19 @@ public class Client {
 		return ARR;
 	}
 
+	public int numberOfATypeOfAccount(Client client, String accountType) {
+		int numberOfThisAccountType = 0;
+		
+		List<Account> clientAccounts = client.getAccounts();
+		for (int i = 0; i < clientAccounts.size(); i++) {
+			if (clientAccounts.get(i).getAccountType() == accountType) {
+				numberOfThisAccountType += 1;
+			}
+		}
+		
+		return numberOfThisAccountType;
+	}
+	
 //	public void calculatePercentagesByAccountType() {
 //		double savingsPercentage = 0.0;
 //		double checkingsPercentage = 0.0;
