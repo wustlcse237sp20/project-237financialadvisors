@@ -83,5 +83,9 @@ public class ClientTests {
 		assertEquals(2, client.numberOfATypeOfAccount(client, "savings"));
 	}
 	
+	@Test
+	public void testFindHighestInterestRate() {
+		assertTrue(one.findHighestInterestRate(one.getAccounts()) == 7.0);
+	}
 	
 }

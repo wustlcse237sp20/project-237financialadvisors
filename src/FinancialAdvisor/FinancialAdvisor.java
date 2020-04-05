@@ -2,6 +2,7 @@ package FinancialAdvisor;
 
 import Account.Client;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import Account.Account;
@@ -24,24 +25,32 @@ public class FinancialAdvisor {
 	 * @param client
 	 * @return true if action completed, false if not
 	 */
+	
+	//can be broken up into multiple methods
 	public boolean consolidateAccounts(Client client) {
 		boolean accountConsolidated = false;
 		List<Account> clientAccounts = client.getAccounts();
+		List<Account> clientSavingsAccounts = new ArrayList<Account>();
+		List<Account> clientCheckingAccounts = new ArrayList<Account>();
+		//2 array list, go through and add to the array list
+		//then .get the interest rate and find the highest interest rate and print the highest one
 		
 		if (client.numberOfATypeOfAccount(client, "checkings") > 1) {
 			for (int i = 0; i < clientAccounts.size(); i++) {
 					
 					if (clientAccounts.get(i).getAccountType() == "checkings") {
-					}
-					
-					if (clientAccounts.get(i).getAccountType() == "savings") {
-						
+						clientCheckingAccounts.add(clientAccounts.get(i));
 					}
 			}
 		}
 		
 		if (client.numberOfATypeOfAccount(client, "savings") > 1) {
-			
+			for (int i = 0; i < clientAccounts.size(); i++) {
+				
+				if (clientAccounts.get(i).getAccountType() == "savings") {
+					clientSavingsAccounts.add(clientAccounts.get(i));
+				}
+			}
 		}
 
 		return accountConsolidated;

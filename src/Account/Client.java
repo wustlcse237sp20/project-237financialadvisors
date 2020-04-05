@@ -103,6 +103,18 @@ public class Client {
 		return numberOfThisAccountType;
 	}
 	
+	public double findHighestInterestRate(List<Account> Accounts) {
+		double highestInterestRate = 0.0;
+		for (int i = 0; i < Accounts.size(); i++) {
+			if (Accounts.get(i).getInterestRate() > highestInterestRate) {
+				highestInterestRate = Accounts.get(i).getInterestRate();
+			}
+		}
+		
+		return highestInterestRate;
+		
+	}
+	
 //	public void calculatePercentagesByAccountType() {
 //		double savingsPercentage = 0.0;
 //		double checkingsPercentage = 0.0;
