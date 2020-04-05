@@ -48,7 +48,7 @@ public class FinancialAdvisor {
 			accountConsolidated = true;
 		}
 		
-		if (client.numberOfATypeOfAccount(client, "savings") > 1) {
+		else if (client.numberOfATypeOfAccount(client, "savings") > 1) {
 			double savingsRate = 0.0;
 			for (int i = 0; i < clientAccounts.size(); i++) {
 				
