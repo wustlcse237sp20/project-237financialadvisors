@@ -40,6 +40,6 @@ public class FinancialAdvisorApp {
 		a.getAverageRateOfReturn();
 		a.generateAccounts();
 		a.calculatePercentagesByAccount();
-		a.calculatePercentagesByAccountType();
+		//a.calculatePercentagesByAccountType();
 	}
 }
