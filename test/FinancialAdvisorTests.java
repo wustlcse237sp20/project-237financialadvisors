@@ -1,6 +1,13 @@
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Test;
+
+import FinancialAdvisor.FinancialAdvisor;
+import Account.Account;
+import Account.Client;
 
 public class FinancialAdvisorTests {
 
@@ -11,8 +18,9 @@ public class FinancialAdvisorTests {
 
 	@Test
 	public void testOptimalRiskByAgeBracket() {
-		Client c = new Client(30);
-		assertTrue(c.optimalRiskByAgeBracket(5.0));
-		assertFalse(c.optimalRiskByAgeBracket(15.0));
+		List<Account> Accounts = new ArrayList<Account>();
+		Client c = new Client(Accounts, 30);
+		FinancialAdvisor f = new FinancialAdvisor(c);
+		assertEquals(10.0, f.optimalRiskByAgeBracket(c), 0);
 	}
 }

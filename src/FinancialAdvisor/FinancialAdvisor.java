@@ -1,6 +1,14 @@
 package FinancialAdvisor;
 
+import Account.Client;
+
 public class FinancialAdvisor {
+	
+	private Client client;
+
+	public FinancialAdvisor(Client client) {
+		this.client = client;
+	}
 	
 	public static void consolidateAccounts(Client client) {
 		//for loop iterating through clients accounts
@@ -15,12 +23,26 @@ public class FinancialAdvisor {
 	
 	public double optimalRiskByAgeBracket(Client client) {
 		double averageRateOfReturn = 0.0;
-		//if client age < 18
-		//if client age >= 18 && client age < 30
-		//if client age >= 30 && client age < 40
-		//if client age >= 40 && client age < 50
-		//if client age >= 50 && client age < 60
-		//if client age >= 60
+		
+		if (client.getAge() < 18) {
+			return averageRateOfReturn;
+		}
+		else if (client.getAge() >= 18 && client.getAge() < 30) {
+			averageRateOfReturn = 15.0;
+		}
+		else if (client.getAge() >= 30 && client.getAge() < 40) {
+			averageRateOfReturn = 10.0;
+		}
+		else if (client.getAge() >= 40 && client.getAge() < 50) {
+			averageRateOfReturn = 8.0;
+		}
+		else if (client.getAge() >= 50 && client.getAge() < 60) {
+			averageRateOfReturn = 6.0;
+		}
+		else if (client.getAge() >= 60) {
+			averageRateOfReturn = 5.0;
+		}
+		
 		return averageRateOfReturn;
 	}
 }
