@@ -44,7 +44,7 @@ public class FinancialAdvisor {
 					}
 			}
 			checkingsRate = client.findHighestInterestRate(clientCheckingAccounts);
-			System.out.print("The highest checkings account interest rate is " + checkingsRate);
+			System.out.print("The highest checkings account interest rate is " + checkingsRate + ". You should transfer funds to the checkings account with this interest rate.");
 			accountConsolidated = true;
 		}
 		
@@ -57,7 +57,7 @@ public class FinancialAdvisor {
 				}
 			}
 			savingsRate = client.findHighestInterestRate(clientSavingsAccounts);
-			System.out.print("The highest savings account interest rate is " + savingsRate);
+			System.out.print("The highest savings account interest rate is " + savingsRate + ". You should transfer funds to the savings account with this interest rate.");
 			accountConsolidated = true;
 		}
 
