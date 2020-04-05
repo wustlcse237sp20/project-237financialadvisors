@@ -14,20 +14,31 @@ public class FinancialAdvisor {
 		this.client = client;
 	}
 	
-	public static void consolidateAccounts(Client client) {
-		
+	public Client getClient() {
+		return client;
+	}
+	
+	public boolean consolidateAccounts(Client client) {
+		boolean accountConsolidated = false;
 		List<Account> clientAccounts = client.getAccounts();
 		
-		for (int i = 0; i < clientAccounts.size(); i++) {
-				
-				if (clientAccounts.get(i).getAccountType() == "checkings") {
-				}
-				
-				if (clientAccounts.get(i).getAccountType() == "savings") {
+		if (client.numberOfATypeOfAccount(client, "checkings") > 1) {
+			for (int i = 0; i < clientAccounts.size(); i++) {
 					
-				}
+					if (clientAccounts.get(i).getAccountType() == "checkings") {
+					}
+					
+					if (clientAccounts.get(i).getAccountType() == "savings") {
+						
+					}
+			}
 		}
 		
+		if (client.numberOfATypeOfAccount(client, "savings") > 1) {
+			
+		}
+
+		return accountConsolidated;
 	}
 	
 
