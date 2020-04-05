@@ -2,6 +2,10 @@ package FinancialAdvisor;
 
 import Account.Client;
 
+import java.util.List;
+
+import Account.Account;
+
 public class FinancialAdvisor {
 	
 	private Client client;
@@ -11,13 +15,23 @@ public class FinancialAdvisor {
 	}
 	
 	public static void consolidateAccounts(Client client) {
-		//for loop iterating through clients accounts
-			//if checkings
-				//compaire interest rates, move money
-			//if savings
-				//compaire interest rates, move money
-			//if investments
-				//compaire interest rates, move money
+		
+		List<Account> clientAccounts = client.getAccounts();
+		
+		for (int i = 0; i < clientAccounts.size(); i++) {
+			if (clientAccounts.get(i).getAccountType() == "checkings") {
+				
+			}
+			if (clientAccounts.get(i).getAccountType() == "savings") {
+				
+			}
+			if (clientAccounts.get(i).getAccountType() == "stocks") {
+				
+			}
+			if (clientAccounts.get(i).getAccountType() == "bonds") {
+				
+			}
+		}
 		
 	}
 	
@@ -43,7 +57,7 @@ public class FinancialAdvisor {
 			averageRateOfReturn = 5.0;
 		}
 		
-		System.out.print("Your optimal ARR for your age bracket is: " + averageRateOfReturn);
+		System.out.print("Your optimal ARR for your age bracket is: " + averageRateOfReturn + "%");
 		
 		return averageRateOfReturn;
 	}
