@@ -39,3 +39,4 @@ When entering interest rate, overdraw allowance, and initial balance, be sure to
 We will work on sanitizing user input in the next iteration. 
 
 Instructions to run on command line: ./runFinancialAdvisors.sh
+**in case file permission is somehow incorrect, type in "chmod 755 runFinancialAdvisors.sh" then try running again
