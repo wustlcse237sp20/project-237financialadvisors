@@ -66,7 +66,7 @@ public class Client {
 				accountDeposit = i;
 			}
 		}
-		Accounts.get(accountWithdraw).withdraw(amount);
+		Accounts.get(accountWithdraw).withdraw(amount); 
 		Accounts.get(accountDeposit).deposit(amount);
 		return true;
 	}

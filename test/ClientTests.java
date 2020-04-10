@@ -78,7 +78,7 @@ public class ClientTests {
 	public void testTransferMoney() {
 		one.transferMoney(12345678, 87654321, 100.0);
 		assertTrue(a.getBalance()==400.0);
-		assertTrue(b.getBalance()==200.0);
+		assertTrue(b.getBalance()==400.0);
 	}
 	
 	@Test
