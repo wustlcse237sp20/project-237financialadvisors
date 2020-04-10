@@ -31,7 +31,37 @@ public class Client {
 	public double getAverageRateOfReturn() {
 		return ARR;
 	}
-
+	
+	public boolean deleteAccount(int accountNumber) {
+		int account = -1;
+		for (int i =0; i<Accounts.size(); i++) {
+			if (accountNumber == Accounts.get(i).getAccountNumber()) {
+				account = i;
+			}
+		}
+		Accounts.remove(account);
+		return true;
+	}
+	
+	public void addAccount(Account a) {
+		Accounts.add(a);
+	}
+	
+	public boolean transferMoney(int accountWithdrawNumber, int accountDepositNumber, double amount) {
+		int accountWithdraw = -1;
+		int accountDeposit = -1;
+		for (int i = 0; i<Accounts.size(); i++) {
+			if (accountWithdrawNumber == Accounts.get(i).getAccountNumber()) {
+				accountWithdraw = i;
+			}
+			if (accountDepositNumber == Accounts.get(i).getAccountNumber()) {
+				accountDeposit = i;
+			}
+		}
+		Accounts.get(accountWithdraw).withdraw(amount); 
+		Accounts.get(accountDeposit).deposit(amount);
+		return true;
+	}
 
 	/**
 	 * Prints out all the client's accounts

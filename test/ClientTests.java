@@ -13,30 +13,35 @@ import Account.Account;
 import Account.Client;
 
 public class ClientTests {
+	List<Account> Accounts;
+	Account a;
+	Account b;
+	Account c;
+	Account d;
+	Account e;
 	Client one;
 	
 	@Before
 	public void setUp() {
-		List<Account> Accounts = new ArrayList<Account>();
-		Account a = new Account("savings", "chase", 0.2, 500.0, 12345678);
+		Accounts = new ArrayList<Account>();
+		a = new Account("savings", "chase", 0.2, 500.0, 12345678);
 		a.deposit(500.0);
 		Accounts.add(a);
-		Account b = new Account("checkings", "boa", 0.0, 100.0, 87654321);
+		b = new Account("checkings", "boa", 0.0, 100.0, 87654321);
 		b.deposit(300.0);
 		Accounts.add(b);
-		Account c = new Account("investments", "fidelity", 7.0, 0.0, 56781234);
+		c = new Account("investments", "fidelity", 7.0, 0.0, 56781234);
 		c.deposit(700.0);
 		Accounts.add(c);
-		Account d = new Account("bonds", "etrade", 3.0, 0.0, 43218765);
+		d = new Account("bonds", "etrade", 3.0, 0.0, 43218765);
 		d.deposit(300.0);
 		Accounts.add(d);
-		Account e = new Account("investments", "etrade", 7.0, 0.0, 34561278);
+		e = new Account("investments", "etrade", 7.0, 0.0, 34561278);
 		e.deposit(200.0);
 		Accounts.add(e);
 		one = new Client(Accounts, 27);
 		
 	}
-	
 
 	@Test
 	public void testGetTotalWealth() {
@@ -70,6 +75,23 @@ public class ClientTests {
 	}
 	
 	@Test
+	public void testTransferMoney() {
+		one.transferMoney(12345678, 87654321, 100.0);
+		assertTrue(a.getBalance()==400.0);
+		assertTrue(b.getBalance()==400.0);
+	}
+	
+	@Test
+	public void testDeleteAccount() {
+		one.deleteAccount(34561278);
+		assertTrue(Accounts.size()==4);
+	}
+	
+//	@Test
+//	public void testCalculatePercentagesByAccountType() {
+//
+//	}
+
 	public void testNumberOfATypeOfAccount() {
 		List<Account> Accounts = new ArrayList<Account>();
 		Account a = new Account("savings", "chase", 0.2, 500.0, 12345678);
