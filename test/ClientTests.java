@@ -36,7 +36,6 @@ public class ClientTests {
 		one = new Client(Accounts, 27);
 		
 	}
-	
 
 	@Test
 	public void testGetTotalWealth() {
