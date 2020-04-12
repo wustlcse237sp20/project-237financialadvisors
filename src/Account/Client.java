@@ -138,15 +138,17 @@ public class Client {
 	 * @param Accounts
 	 * @return interest rate (double)
 	 */
-	public double findHighestInterestRate(List<Account> Accounts) {
+	public Account findHighestInterestRate(List<Account> Accounts) {
 		double highestInterestRate = 0.0;
+		Account highestRateAccount = new Account(null, null, 0, 0, 0);
 		for (int i = 0; i < Accounts.size(); i++) {
 			if (Accounts.get(i).getInterestRate() > highestInterestRate) {
 				highestInterestRate = Accounts.get(i).getInterestRate();
+				highestRateAccount = Accounts.get(i);
 			}
 		}
 		
-		return highestInterestRate;
+		return highestRateAccount;
 		
 	}
 	

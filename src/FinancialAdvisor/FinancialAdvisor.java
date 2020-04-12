@@ -36,28 +36,42 @@ public class FinancialAdvisor {
 		List<Account> clientCheckingAccounts = new ArrayList<Account>();
 
 		if (client.numberOfATypeOfAccount(client, "checkings") > 1) {
-			double checkingsRate = 0.0;
+			Account checkingsHighestAccount = new Account(null, null, 0, 0, 0);
 			for (int i = 0; i < clientAccounts.size(); i++) {
 					
 					if (clientAccounts.get(i).getAccountType() == "checkings") {
 						clientCheckingAccounts.add(clientAccounts.get(i));
 					}
 			}
-			checkingsRate = client.findHighestInterestRate(clientCheckingAccounts);
-			outputMessage1 = "The highest checkings account interest rate is " + checkingsRate + ". You should transfer funds to the checkings account with this interest rate.";
+			checkingsHighestAccount = client.findHighestInterestRate(clientCheckingAccounts);
+			outputMessage1 = "The highest checkings account interest rate is " + checkingsHighestAccount.getInterestRate() + ". You should transfer funds to the checkings account with this interest rate.";
+			clientCheckingAccounts.remove(checkingsHighestAccount);
+			
+			for (int i = 0; i < clientCheckingAccounts.size(); i++) {
+				int withdrawAccountNumber = clientCheckingAccounts.get(i).getAccountNumber();
+				client.transferMoney(withdrawAccountNumber, checkingsHighestAccount.getAccountNumber(), clientCheckingAccounts.get(i).getBalance());
+				client.deleteAccount(withdrawAccountNumber);
+			}
 			accountConsolidated = true;
 		}
 		
 		else if (client.numberOfATypeOfAccount(client, "savings") > 1) {
-			double savingsRate = 0.0;
+			Account savingsHighestAccount = new Account(null, null, 0, 0, 0);
 			for (int i = 0; i < clientAccounts.size(); i++) {
 				
 				if (clientAccounts.get(i).getAccountType() == "savings") {
 					clientSavingsAccounts.add(clientAccounts.get(i));
 				}
 			}
-			savingsRate = client.findHighestInterestRate(clientSavingsAccounts);
-			outputMessage2 = "The highest savings account interest rate is " + savingsRate + ". You should transfer funds to the savings account with this interest rate.";
+			savingsHighestAccount = client.findHighestInterestRate(clientSavingsAccounts);
+			outputMessage2 = "The highest savings account interest rate is " + savingsHighestAccount.getInterestRate() + ". You should transfer funds to the savings account with this interest rate.";
+			clientSavingsAccounts.remove(savingsHighestAccount);
+			
+			for (int i = 0; i < clientSavingsAccounts.size(); i++) {
+				int withdrawAccountNumber = clientSavingsAccounts.get(i).getAccountNumber();
+				client.transferMoney(withdrawAccountNumber, savingsHighestAccount.getAccountNumber(), clientSavingsAccounts.get(i).getBalance());
+				client.deleteAccount(withdrawAccountNumber);
+			}
 			accountConsolidated = true;
 		}
 		
