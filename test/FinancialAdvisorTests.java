@@ -23,7 +23,8 @@ public class FinancialAdvisorTests {
 		Accounts.add(b);
 		Account c = new Account("savings", "chase", 0.5, 500.0, 28374958);
 		Accounts.add(c);
-		
+		f.consolidateAccounts(client);
+		assertTrue(Accounts.size() == 2);
 		assertTrue(f.consolidateAccounts(client));
 	}
 
