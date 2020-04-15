@@ -12,8 +12,6 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 
 public class clientUserInterface {
-	
-	//test
 
 	private JFrame frame;
 	private JTextField txtBankName;
