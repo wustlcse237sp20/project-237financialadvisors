@@ -23,8 +23,8 @@ public class FinancialAdvisorTests {
 		Accounts.add(b);
 		Account c = new Account("savings", "chase", 0.5, 500.0, 28374958);
 		Accounts.add(c);
-		
-		assertTrue(f.consolidateAccounts(client));
+		f.consolidateAccounts(client);
+		assertTrue(Accounts.size() == 2);
 	}
 
 	@Test
@@ -32,6 +32,6 @@ public class FinancialAdvisorTests {
 		List<Account> Accounts = new ArrayList<Account>();
 		Client c = new Client(Accounts, 30);
 		FinancialAdvisor f = new FinancialAdvisor(c);
-		assertEquals(10.0, f.optimalRiskByAgeBracket(c), 0);
+		assertEquals(12.0, f.optimalRiskByAgeBracket(c), 0);
 	}
 }

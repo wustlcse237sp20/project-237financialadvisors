@@ -36,7 +36,7 @@ public class ClientTests {
 		d = new Account("bonds", "etrade", 3.0, 0.0, 43218765);
 		d.deposit(300.0);
 		Accounts.add(d);
-		e = new Account("investments", "etrade", 7.0, 0.0, 34561278);
+		e = new Account("investments", "etrade", 8.0, 0.0, 34561278);
 		e.deposit(200.0);
 		Accounts.add(e);
 		one = new Client(Accounts, 27);
@@ -51,7 +51,7 @@ public class ClientTests {
 	@Test
 	public void testGetAverageRateOfReturn() {
 		System.out.println("Value: " + one.getAverageRateOfReturn());
-		assertTrue(one.getAverageRateOfReturn() == 3.65);
+		assertTrue(one.getAverageRateOfReturn() == 3.75);
 	}
 
 	
@@ -99,6 +99,11 @@ public class ClientTests {
 		assertTrue(a.getBalance()==300.0);
 	}
 	
+	public void testInterestRateCalculator() {
+		one.interestRateCalculator(one, 5, 12);
+		assertTrue(one.getTotalWealth() == 2411.76);
+	}
+
 	public void testNumberOfATypeOfAccount() {
 		List<Account> Accounts = new ArrayList<Account>();
 		Account a = new Account("savings", "chase", 0.2, 500.0, 12345678);
@@ -114,7 +119,7 @@ public class ClientTests {
 	
 	@Test
 	public void testFindHighestInterestRate() {
-		assertTrue(one.findHighestInterestRate(one.getAccounts()) == 7.0);
+		assertTrue(one.findHighestInterestRate(one.getAccounts()) == e);
 	}
 	
 }
