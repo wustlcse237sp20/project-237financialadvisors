@@ -153,10 +153,9 @@ public class Client {
 	}
 	
 public double interestRateCalculator (Client client, int years, int compound) {
-		double principle = client.getTotalWealth();
 		double interestRate = client.getAverageRateOfReturn();
-		double newBalance = principle*(1+((interestRate*0.01)/compound));
-		totalWealth = Math.round((Math.pow(newBalance, compound*years))*100.0)/100.0;
+		double interestGenerated = Math.pow(1+((interestRate*0.01)/compound), 60);
+		totalWealth = Math.round((client.getTotalWealth()*interestGenerated)*100.0)/100.0;
 		return totalWealth;
 	}
 
