@@ -95,19 +95,44 @@ public class FinancialAdvisor {
 			return averageRateOfReturn;
 		}
 		else if (client.getAge() >= 18 && client.getAge() < 30) {
-			averageRateOfReturn = 15.0;
+			if (currentClientARR >= 16 && currentClientARR < 20) {
+				averageRateOfReturn = currentClientARR;
+			}
+			else {
+				averageRateOfReturn = 16.0;
+			}
 		}
 		else if (client.getAge() >= 30 && client.getAge() < 40) {
-			averageRateOfReturn = 10.0;
+			if (currentClientARR >= 12 && currentClientARR < 16) {
+				averageRateOfReturn = currentClientARR;
+			}
+			else {
+				averageRateOfReturn = 12.0;
+			}
 		}
 		else if (client.getAge() >= 40 && client.getAge() < 50) {
-			averageRateOfReturn = 8.0;
+			if (currentClientARR >= 9 && currentClientARR < 12) {
+				averageRateOfReturn = currentClientARR;
+			}
+			else {
+				averageRateOfReturn = 9.0;
+			}
 		}
 		else if (client.getAge() >= 50 && client.getAge() < 60) {
-			averageRateOfReturn = 6.0;
+			if (currentClientARR >= 6 && currentClientARR < 9) {
+				averageRateOfReturn = currentClientARR;
+			}
+			else {
+				averageRateOfReturn = 6.0;
+			}
 		}
 		else if (client.getAge() >= 60) {
-			averageRateOfReturn = 5.0;
+			if (currentClientARR >= 3 && currentClientARR < 6) {
+				averageRateOfReturn = currentClientARR;
+			}
+			else {
+				averageRateOfReturn = 3.0;
+			}
 		}
 		
 		if (currentClientARR > averageRateOfReturn) {
