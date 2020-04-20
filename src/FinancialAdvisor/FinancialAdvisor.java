@@ -149,4 +149,11 @@ public class FinancialAdvisor {
 		
 		return averageRateOfReturn;
 	}
+	
+	public boolean recommendHigherYieldAccounts() {
+		boolean recommendedAccount = false;
+		
+		
+		return recommendedAccount;
+	}
 }

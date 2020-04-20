@@ -34,4 +34,9 @@ public class FinancialAdvisorTests {
 		FinancialAdvisor f = new FinancialAdvisor(c);
 		assertEquals(12.0, f.optimalRiskByAgeBracket(c), 0);
 	}
+	
+	@Test
+	public void testRecommendHigherYieldAccounts() {
+		
+	}
 }
