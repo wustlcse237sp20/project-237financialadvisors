@@ -43,6 +43,28 @@ public class Client {
 		return true;
 	}
 	
+	public boolean deposit(int accountNumber, int amount) {
+		int account = -1;
+		for (int i = 0; i<Accounts.size(); i++) {
+			if (accountNumber == Accounts.get(i).getAccountNumber()) {
+				account = i;
+			}
+		}
+		Accounts.get(account).deposit(amount);
+		return true;
+	}
+	
+	public boolean withdraw(int accountNumber, int amount) {
+		int account = -1;
+		for (int i = 0; i<Accounts.size(); i++) {
+			if (accountNumber == Accounts.get(i).getAccountNumber()) {
+				account = i;
+			}
+		}
+		Accounts.get(account).withdraw(amount);
+		return true;
+	}
+	
 	public void addAccount(Account a) {
 		Accounts.add(a);
 	}
