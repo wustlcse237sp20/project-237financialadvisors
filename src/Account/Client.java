@@ -52,6 +52,7 @@ public class Client {
 		return true;
 	}
 
+
 	/**
 	 * enables client to be able to transfer money between accounts
 	 * @param accountWithdrawNumber
@@ -59,6 +60,32 @@ public class Client {
 	 * @param amount
 	 * @return true if successful 
 	 */
+	public boolean deposit(int accountNumber, int amount) {
+		int account = -1;
+		for (int i = 0; i<Accounts.size(); i++) {
+			if (accountNumber == Accounts.get(i).getAccountNumber()) {
+				account = i;
+			}
+		}
+		Accounts.get(account).deposit(amount);
+		return true;
+	}
+	
+	public boolean withdraw(int accountNumber, int amount) {
+		int account = -1;
+		for (int i = 0; i<Accounts.size(); i++) {
+			if (accountNumber == Accounts.get(i).getAccountNumber()) {
+				account = i;
+			}
+		}
+		Accounts.get(account).withdraw(amount);
+		return true;
+	}
+	
+	public void addAccount(Account a) {
+		Accounts.add(a);
+	}
+	
 	public boolean transferMoney(int accountWithdrawNumber, int accountDepositNumber, double amount) {
 		int accountWithdraw = -1;
 		int accountDeposit = -1;
