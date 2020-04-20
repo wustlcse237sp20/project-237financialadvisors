@@ -36,28 +36,42 @@ public class FinancialAdvisor {
 		List<Account> clientCheckingAccounts = new ArrayList<Account>();
 
 		if (client.numberOfATypeOfAccount(client, "checkings") > 1) {
-			double checkingsRate = 0.0;
+			Account checkingsHighestAccount = new Account(null, null, 0, 0, 0);
 			for (int i = 0; i < clientAccounts.size(); i++) {
 					
 					if (clientAccounts.get(i).getAccountType() == "checkings") {
 						clientCheckingAccounts.add(clientAccounts.get(i));
 					}
 			}
-			checkingsRate = client.findHighestInterestRate(clientCheckingAccounts);
-			outputMessage1 = "The highest checkings account interest rate is " + checkingsRate + ". You should transfer funds to the checkings account with this interest rate.";
+			checkingsHighestAccount = client.findHighestInterestRate(clientCheckingAccounts);
+			outputMessage1 = "The highest checkings account interest rate is " + checkingsHighestAccount.getInterestRate() + ". You should transfer funds to the checkings account with this interest rate.";
+			clientCheckingAccounts.remove(checkingsHighestAccount);
+			
+			for (int i = 0; i < clientCheckingAccounts.size(); i++) {
+				int withdrawAccountNumber = clientCheckingAccounts.get(i).getAccountNumber();
+				client.transferMoney(withdrawAccountNumber, checkingsHighestAccount.getAccountNumber(), clientCheckingAccounts.get(i).getBalance());
+				client.deleteAccount(withdrawAccountNumber);
+			}
 			accountConsolidated = true;
 		}
 		
 		else if (client.numberOfATypeOfAccount(client, "savings") > 1) {
-			double savingsRate = 0.0;
+			Account savingsHighestAccount = new Account(null, null, 0, 0, 0);
 			for (int i = 0; i < clientAccounts.size(); i++) {
 				
 				if (clientAccounts.get(i).getAccountType() == "savings") {
 					clientSavingsAccounts.add(clientAccounts.get(i));
 				}
 			}
-			savingsRate = client.findHighestInterestRate(clientSavingsAccounts);
-			outputMessage2 = "The highest savings account interest rate is " + savingsRate + ". You should transfer funds to the savings account with this interest rate.";
+			savingsHighestAccount = client.findHighestInterestRate(clientSavingsAccounts);
+			outputMessage2 = "The highest savings account interest rate is " + savingsHighestAccount.getInterestRate() + ". You should transfer funds to the savings account with this interest rate.";
+			clientSavingsAccounts.remove(savingsHighestAccount);
+			
+			for (int i = 0; i < clientSavingsAccounts.size(); i++) {
+				int withdrawAccountNumber = clientSavingsAccounts.get(i).getAccountNumber();
+				client.transferMoney(withdrawAccountNumber, savingsHighestAccount.getAccountNumber(), clientSavingsAccounts.get(i).getBalance());
+				client.deleteAccount(withdrawAccountNumber);
+			}
 			accountConsolidated = true;
 		}
 		
@@ -81,19 +95,44 @@ public class FinancialAdvisor {
 			return averageRateOfReturn;
 		}
 		else if (client.getAge() >= 18 && client.getAge() < 30) {
-			averageRateOfReturn = 15.0;
+			if (currentClientARR >= 16 && currentClientARR < 20) {
+				averageRateOfReturn = currentClientARR;
+			}
+			else {
+				averageRateOfReturn = 16.0;
+			}
 		}
 		else if (client.getAge() >= 30 && client.getAge() < 40) {
-			averageRateOfReturn = 10.0;
+			if (currentClientARR >= 12 && currentClientARR < 16) {
+				averageRateOfReturn = currentClientARR;
+			}
+			else {
+				averageRateOfReturn = 12.0;
+			}
 		}
 		else if (client.getAge() >= 40 && client.getAge() < 50) {
-			averageRateOfReturn = 8.0;
+			if (currentClientARR >= 9 && currentClientARR < 12) {
+				averageRateOfReturn = currentClientARR;
+			}
+			else {
+				averageRateOfReturn = 9.0;
+			}
 		}
 		else if (client.getAge() >= 50 && client.getAge() < 60) {
-			averageRateOfReturn = 6.0;
+			if (currentClientARR >= 6 && currentClientARR < 9) {
+				averageRateOfReturn = currentClientARR;
+			}
+			else {
+				averageRateOfReturn = 6.0;
+			}
 		}
 		else if (client.getAge() >= 60) {
-			averageRateOfReturn = 5.0;
+			if (currentClientARR >= 3 && currentClientARR < 6) {
+				averageRateOfReturn = currentClientARR;
+			}
+			else {
+				averageRateOfReturn = 3.0;
+			}
 		}
 		
 		if (currentClientARR > averageRateOfReturn) {
@@ -109,5 +148,12 @@ public class FinancialAdvisor {
 		System.out.print("Your current ARR is: " + currentClientARR + "%, which is " + compareOptimalAndClientARR + " the optimal ARR of " + averageRateOfReturn + "% for your age bracket.");
 		
 		return averageRateOfReturn;
+	}
+	
+	public boolean recommendHigherYieldAccounts() {
+		boolean recommendedAccount = false;
+		
+		
+		return recommendedAccount;
 	}
 }
