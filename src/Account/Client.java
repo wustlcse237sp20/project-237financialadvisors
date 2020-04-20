@@ -19,19 +19,28 @@ public class Client {
 	public List<Account> getAccounts() {
 		return Accounts;
 	}
-	
+
 	public int getAge() {
 		return age;
 	}
-	
+
 	public double getTotalWealth() {
 		return totalWealth;
 	}
-	
+
 	public double getAverageRateOfReturn() {
 		return ARR;
 	}
 	
+	public void addAccount(Account a) {
+		Accounts.add(a);
+	}
+	
+	/**
+	 * 
+	 * @param accountNumber
+	 * @return true if successful 
+	 */
 	public boolean deleteAccount(int accountNumber) {
 		int account = -1;
 		for (int i =0; i<Accounts.size(); i++) {
@@ -42,7 +51,15 @@ public class Client {
 		Accounts.remove(account);
 		return true;
 	}
-	
+
+
+	/**
+	 * enables client to be able to transfer money between accounts
+	 * @param accountWithdrawNumber
+	 * @param accountDepositNumber
+	 * @param amount
+	 * @return true if successful 
+	 */
 	public boolean deposit(int accountNumber, int amount) {
 		int account = -1;
 		for (int i = 0; i<Accounts.size(); i++) {
@@ -108,7 +125,7 @@ public class Client {
 		System.out.println("Your total wealth is: $" + totalWealth);
 		return totalWealth;
 	}
-	
+
 	/**
 	 * Calculates the percentage of client's wealth that is in an account
 	 * @param 
@@ -121,7 +138,7 @@ public class Client {
 			System.out.print(percentage + "% of your wealth is in account " + (i+1) + ", ");
 		}
 	}
-	
+
 	/**
 	 * Calculates the client's average rate of return across all accounts
 	 * @param 
@@ -144,17 +161,17 @@ public class Client {
 	 */
 	public int numberOfATypeOfAccount(Client client, String accountType) {
 		int numberOfThisAccountType = 0;
-		
+
 		List<Account> clientAccounts = client.getAccounts();
 		for (int i = 0; i < clientAccounts.size(); i++) {
 			if (clientAccounts.get(i).getAccountType() == accountType) {
 				numberOfThisAccountType += 1;
 			}
 		}
-		
+
 		return numberOfThisAccountType;
 	}
-	
+
 	/**
 	 * Finds the highest interest rate in a list of accounts
 	 * @param Accounts
@@ -169,12 +186,18 @@ public class Client {
 				highestRateAccount = Accounts.get(i);
 			}
 		}
-		
+
 		return highestRateAccount;
-		
 	}
 	
-public double interestRateCalculator (Client client, int years, int compound) {
+	/**
+	 * 
+	 * @param client
+	 * @param years
+	 * @param compound (number of times per year)
+	 * @return updated totalWealth
+	 */
+	public double interestRateCalculator (Client client, int years, int compound) {
 		double interestRate = client.getAverageRateOfReturn();
 		double interestGenerated = Math.pow(1+((interestRate*0.01)/compound), 60);
 		totalWealth = Math.round((client.getTotalWealth()*interestGenerated)*100.0)/100.0;
