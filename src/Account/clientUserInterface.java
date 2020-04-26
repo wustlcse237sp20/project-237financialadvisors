@@ -87,9 +87,9 @@ public class clientUserInterface {
 		 		 String account = (String)JOptionPane.showInputDialog(frame, "Enter account number", "Customized Dialog", JOptionPane.PLAIN_MESSAGE, null, null, null);
 		 		 
 			if ((type != null && name != null && interest != null && overdraw != null && account != null)) {	
-					Account x = new Account(type, name, Double.parseDouble(interest), Double.parseDouble(overdraw), Integer.parseInt(account));
-					client.addAccount(x);
-					listModel.addElement(x);
+					Account newAccount = new Account(type, name, Double.parseDouble(interest), Double.parseDouble(overdraw), Integer.parseInt(account));
+					client.addAccount(newAccount);
+					listModel.addElement(newAccount);
 					return;
 				}
 			}
@@ -98,13 +98,12 @@ public class clientUserInterface {
 		springLayout.putConstraint(SpringLayout.SOUTH, btnAddAccount, -10, SpringLayout.SOUTH, frame.getContentPane());
 		frame.getContentPane().add(btnAddAccount);
 		
-		JButton btnDeleteAccount = new JButton("delete acccount");
+		JButton btnDeleteAccount = new JButton("delete account");
 		btnDeleteAccount.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) { 
 				client.deleteAccount(list.getSelectedValue().getAccountNumber());
 				listModel.removeElement(list.getSelectedValue());
-				list.remove(list.getSelectedIndex());
 			}
 		});
 		springLayout.putConstraint(SpringLayout.NORTH, btnDeleteAccount, 0, SpringLayout.NORTH, btnAddAccount);
@@ -115,12 +114,13 @@ public class clientUserInterface {
 		btnWithdrawal.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				double s = (double)JOptionPane.showInputDialog(frame, "How much would you like to withdraw from the selected account?",  "Customized Dialog", JOptionPane.PLAIN_MESSAGE, null, null, null);
+				String withdrawal = (String)JOptionPane.showInputDialog(frame, "How much would you like to withdraw from the selected account?",  "Customized Dialog", JOptionPane.PLAIN_MESSAGE, null, null, null);
 				
-				if (s != 0 && s >= account.getBalance() && list.getSelectedIndex() > -1) {
-						list.getSelectedValue().withdraw(s);
-						return;
-					}
+				if (withdrawal != null && list.getSelectedIndex() > -1) {
+					double withdrawAmount = Double.parseDouble(withdrawal);	
+					client.getAccounts().get(list.getSelectedIndex()).withdraw(withdrawAmount);
+					return;
+				}
 			}
 		});
 		btnWithdrawal.addActionListener(new ActionListener() {
@@ -135,11 +135,12 @@ public class clientUserInterface {
 		btnDeposit.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				double s = (double)JOptionPane.showInputDialog(frame, "How much would you like to deposit into the selected account?",  "Customized Dialog", JOptionPane.PLAIN_MESSAGE, null, null, null);
+				String deposit = (String)JOptionPane.showInputDialog(frame, "How much would you like to deposit into the selected account?",  "Customized Dialog", JOptionPane.PLAIN_MESSAGE, null, null, null);
 				
-				if (s != 0 && s <= account.getOverdrawAllowed() && list.getSelectedIndex() > -1) {
-						list.getSelectedValue().deposit(s);
-						return;
+				if (deposit != null && list.getSelectedIndex() > -1) {
+					double depositAmount = Double.parseDouble(deposit);
+					client.getAccounts().get(list.getSelectedIndex()).deposit(depositAmount);
+					return;
 					}
 			}
 		});
@@ -148,16 +149,27 @@ public class clientUserInterface {
 		frame.getContentPane().add(btnDeposit);
 		
 		JButton btnTransfer = new JButton("Transfer");
+		btnTransfer.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				String accountTransferTo = (String)JOptionPane.showInputDialog(frame, "What is the account number of the account you would like to transfer funds to?",  "Customized Dialog", JOptionPane.PLAIN_MESSAGE, null, null, null);
+				String transferAmount = (String)JOptionPane.showInputDialog(frame, "How much would you like to transfer from selected account into account # " + accountTransferTo + " ?",  "Customized Dialog", JOptionPane.PLAIN_MESSAGE, null, null, null);
+			
+				if (accountTransferTo != null && transferAmount != null && list.getSelectedIndex() > -1) {
+					double amountToTransfer = Double.parseDouble(transferAmount);
+					client.transferMoney(list.getSelectedValue().getAccountNumber(), Integer.parseInt(accountTransferTo), amountToTransfer);
+					return;
+				}
+			
+			}
+		});
 		springLayout.putConstraint(SpringLayout.SOUTH, list, -6, SpringLayout.NORTH, btnTransfer);
-		springLayout.putConstraint(SpringLayout.EAST, list, 141, SpringLayout.WEST, btnTransfer);
+		springLayout.putConstraint(SpringLayout.EAST, list, 89, SpringLayout.WEST, btnTransfer);
 		springLayout.putConstraint(SpringLayout.WEST, btnTransfer, 56, SpringLayout.WEST, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.SOUTH, btnTransfer, -29, SpringLayout.NORTH, btnAddAccount);
 		frame.getContentPane().add(btnTransfer);
 		
-		//list.setSize(100, 100);
-		//list.setFixedCellHeight(50);
-		//list.setFixedCellWidth(60);
-		
+	
 		txtClientNameClient = new JTextField();
 		springLayout.putConstraint(SpringLayout.NORTH, list, 17, SpringLayout.SOUTH, txtClientNameClient);
 		springLayout.putConstraint(SpringLayout.EAST, list, 63, SpringLayout.EAST, txtClientNameClient);
