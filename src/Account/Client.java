@@ -152,30 +152,11 @@ public class Client {
 		
 	}
 	
-//	public void calculatePercentagesByAccountType() {
-//		double savingsPercentage = 0.0;
-//		double checkingsPercentage = 0.0;
-//		double stocksPercentage = 0.0;
-//		double bondsPercentage = 0.0;
-//		for (int i=0; i<Accounts.size();i++) {
-//			if (Accounts.get(i).getAccountType() == "savings") {
-//				savingsPercentage = savingsPercentage + Accounts.get(i).getBalance();
-//			}
-//			if (Accounts.get(i).getAccountType() == "checkings") {
-//				checkingsPercentage = checkingsPercentage + Accounts.get(i).getBalance();
-//			}
-//			if (Accounts.get(i).getAccountType() == "stocks") {
-//				stocksPercentage = stocksPercentage + Accounts.get(i).getBalance();
-//			}
-//			if (Accounts.get(i).getAccountType() == "bonds") {
-//				bondsPercentage = bondsPercentage + Accounts.get(i).getBalance();
-//			}	
-//		}
-//		System.out.println((savingsPercentage/totalWealth) + "% of your wealth is in savings accounts");
-//		System.out.println((checkingsPercentage/totalWealth) + "% of your wealth is in checkings accounts");
-//		System.out.println((stocksPercentage/totalWealth) + "% of your wealth is in stocks accounts");
-//		System.out.println((bondsPercentage/totalWealth) + "% of your wealth is in bonds accounts");
-//	}
-
+public double interestRateCalculator (Client client, int years, int compound) {
+		double interestRate = client.getAverageRateOfReturn();
+		double interestGenerated = Math.pow(1+((interestRate*0.01)/compound), 60);
+		totalWealth = Math.round((client.getTotalWealth()*interestGenerated)*100.0)/100.0;
+		return totalWealth;
+	}
 
 }
