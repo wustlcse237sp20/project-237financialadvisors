@@ -15,10 +15,19 @@ public class Validator {
 	
 	/**
 	 * Simple regex to check transaction amount is a double
-	 * @param account number
+	 * @param transaction amount
 	 * @return
 	 */
 	public static boolean validateTransactionAmount(String transactionAmount) {
 		return Pattern.matches("^\\d{3}$", transactionAmount);
+	}
+	
+	/**
+	 * Simple regex to check for string input of account type
+	 * @param account type
+	 * @return
+	 */
+	public static boolean validateAccountType(String accountType) {
+		return Pattern.matches("\b(checkings|savings|stocks|bonds)\b", accountType);
 	}
 }
