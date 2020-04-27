@@ -5,17 +5,28 @@ Iteration 2:
 
 User stories that were completed:
 
+
+-The financial advisor class was updated 
+    -The client is able to further analyze their accounts. The consolidate accounts method now checks for multiple accounts of the same type, finds the account with the highest interest rate, and will transfer money from other accounts to this highest yield account then delete other accounts. This allows them to properly consolidate their accounts to maximize their yield. 
+    -The client is also able to learn what their optimal ARR should be based on their age bracket, and this has been further edited to a range of ARRs to be more realistic, returning either the client’s ARR if their ARR is within a range considered optimal, or returning the lowest ARR from the range to suggest the minimum ARR they should reach.
+-The client class was updated with 5 methods that would increase functionality 
+
 The financial advisor class was updated 
     -The client is able to further analyze their accounts. The consolidate accounts method now checks for multiple accounts of the same type, finds the account with the highest interest rate, and will transfer money from other accounts to this highest yield account then delete other accounts. This allows them to properly consolidate their accounts to maximize their yield. 
     -The client is also able to learn what their optimal ARR should be based on their age bracket, and this has been further edited to a range of ARRs to be more realistic, returning either the client’s ARR if their ARR is within a range considered optimal, or returning the lowest ARR from the range to suggest the minimum ARR they should reach.
     
 The client class was updated with 5 methods that would increase functionality 
+
     -A client is now able to delete an account and transfer money between accounts
     -interestRateCalculator method was completed -- which calculates the total wealth balance of a client after a given time period to see how the interest rate has compounded and added wealth
     -A client can now withdraw and deposit money from the client class and not just the account class (needed for the user interface)
     -calculatePercentagesByAccountType() method was deleted as it become redundant once the consolidated accounts method was implemented fully 
+
+-User Interface
+
     
 User Interface
+
     -A client is able to view a list of all of their bank accounts through the user interface
     -A client is able to add an account and input the new account’s information to the list as well as delete selected accounts
     -A client can view options to add, delete, deposit, transfer, and withdraw functions on  the user interface 
