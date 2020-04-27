@@ -1,5 +1,8 @@
 import static org.junit.Assert.*;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,5 +36,33 @@ public class FinancialAdvisorTests {
 		Client c = new Client(Accounts, 30);
 		FinancialAdvisor f = new FinancialAdvisor(c);
 		assertEquals(12.0, f.optimalRiskByAgeBracket(c), 0);
+	}
+
+	//output stream code from https://limzhenghong.wordpress.com/2015/03/18/junit-with-system-out-println/
+	@Test
+	public void testRecommendHigherYieldAccounts() {
+		List<Account> Accounts = new ArrayList<Account>();
+		Client client = new Client(Accounts, 30);
+		FinancialAdvisor f = new FinancialAdvisor(client);
+		
+		Account a = new Account("savings", "chase", 2.0, 500.0, 12345678);
+		Accounts.add(a);
+		Account b = new Account("checkings", "boa", 0.0, 100.0, 99876554);
+		Accounts.add(b);
+		
+		//Prepare to redirect output
+		ByteArrayOutputStream os = new ByteArrayOutputStream();
+		PrintStream ps = new PrintStream(os);
+		System.setOut(ps);
+		f.recommendHigherYieldAccounts(client);
+		assertEquals("Consider opening a Capital One 360 Checking account for a higher yield of 0.20% APY", os.toString());
+		os.reset();
+		try {
+			os.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		ps.close();
 	}
 }
