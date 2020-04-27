@@ -87,10 +87,22 @@ public class ClientTests {
 		assertTrue(Accounts.size()==4);
 	}
 	
-//	@Test
-//	public void testCalculatePercentagesByAccountType() {
-//
-//	}
+	@Test
+	public void testDeposit() {
+		one.deposit(12345678, 200);
+		assertTrue(a.getBalance()==700.0);
+	}
+	
+	@Test
+	public void testWithdraw() {
+		one.withdraw(12345678, 200);
+		assertTrue(a.getBalance()==300.0);
+	}
+	
+	public void testInterestRateCalculator() {
+		one.interestRateCalculator(one, 5, 12);
+		assertTrue(one.getTotalWealth() == 2411.76);
+	}
 
 	public void testNumberOfATypeOfAccount() {
 		List<Account> Accounts = new ArrayList<Account>();

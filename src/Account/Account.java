@@ -36,7 +36,11 @@ public class Account {
 	public int getAccountNumber() {
 		return accountNumber;
 	}
-
+	
+	public double getOverdrawAllowed() {
+		return overdrawAllowed;
+	}
+	
 	/**
 	 * 
 	 * @param amount
@@ -64,7 +68,7 @@ public class Account {
 	}
 
 	public String toString() {
-		return accountType + ", " + bankName + ", #" + accountNumber + ", Balance: " + accountBalance + ", Interest Rate:" + interestRate + ", " + "Amount allowed to overdraw: " + overdrawAllowed; 
+		return "Account Type: " + accountType + ", " + bankName + ", Account #: " + accountNumber + ", Balance: " + accountBalance + ", Interest Rate:" + interestRate + ", " + "Amount allowed to overdraw: " + overdrawAllowed; 
 	}
 
 }
