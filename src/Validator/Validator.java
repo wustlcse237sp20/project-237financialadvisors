@@ -28,6 +28,6 @@ public class Validator {
 	 * @return
 	 */
 	public static boolean validateAccountType(String accountType) {
-		return Pattern.matches("\b(checkings|savings|stocks|bonds)\b", accountType);
+		return Pattern.matches("(checkings|savings|stocks|bonds)", accountType);
 	}
 }
