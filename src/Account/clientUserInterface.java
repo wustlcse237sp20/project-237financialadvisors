@@ -4,6 +4,9 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.SpringLayout;
+
+import FinancialAdvisor.FinancialAdvisor;
+
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.Color;
@@ -20,15 +23,18 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JEditorPane;
 import javax.swing.AbstractListModel;
+import javax.swing.JTextArea;
 
 public class clientUserInterface {
 	
 
 	private JFrame frame;
 	private Client client; // create field for controller
+	private FinancialAdvisor advisor;
 	private Account account;
 	List<Account> Accounts = new ArrayList<Account>();
 	private JTextField txtClientNameClient;
+	private JTextField txtFinancialAdvisor;
 
 	/**
 	 * Launch the application.
@@ -59,24 +65,25 @@ public class clientUserInterface {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBackground(new Color(238, 238, 238));
-		frame.setBounds(200, 200, 550, 400);
+		frame.setBounds(200, 200, 1176, 473);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		SpringLayout springLayout = new SpringLayout();
-		frame.getContentPane().setLayout(springLayout);
-		client = new Client(Accounts, 0); //trying to call constructor on controller (Client)
+		int clientAge = 0;
+		client = new Client(Accounts, clientAge); //trying to call constructor on controller (Client)
+		int clientNumAccounts = client.getAccounts().size();
 		
 		DefaultListModel<Account> listModel = new DefaultListModel<>();
 		for (int i=0; i< client.Accounts.size(); i++) {
 			listModel.addElement(client.Accounts.get(i));
 		}
+		frame.getContentPane().setLayout(null);
 		
 		JList<Account> list = new JList<Account>(listModel);
-		springLayout.putConstraint(SpringLayout.WEST, list, 138, SpringLayout.WEST, frame.getContentPane());
+		list.setBounds(21, 52, 784, 269);
 		list.setBackground(Color.WHITE);
 		frame.getContentPane().add(list);
 		
 		JButton btnAddAccount = new JButton("add account");
-		springLayout.putConstraint(SpringLayout.WEST, list, 11, SpringLayout.WEST, btnAddAccount);
+		btnAddAccount.setBounds(31, 385, 121, 29);
 		btnAddAccount.addMouseListener(new MouseAdapter() {
 			 @Override
 			public void mouseClicked(MouseEvent e) {
@@ -94,11 +101,10 @@ public class clientUserInterface {
 				}
 			}
 		});
-		springLayout.putConstraint(SpringLayout.WEST, btnAddAccount, 10, SpringLayout.WEST, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.SOUTH, btnAddAccount, -10, SpringLayout.SOUTH, frame.getContentPane());
 		frame.getContentPane().add(btnAddAccount);
 		
 		JButton btnDeleteAccount = new JButton("delete account");
+		btnDeleteAccount.setBounds(216, 385, 136, 29);
 		btnDeleteAccount.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) { 
@@ -106,11 +112,10 @@ public class clientUserInterface {
 				listModel.removeElement(list.getSelectedValue());
 			}
 		});
-		springLayout.putConstraint(SpringLayout.NORTH, btnDeleteAccount, 0, SpringLayout.NORTH, btnAddAccount);
-		springLayout.putConstraint(SpringLayout.WEST, btnDeleteAccount, 2, SpringLayout.EAST, btnAddAccount);
 		frame.getContentPane().add(btnDeleteAccount);
 		
 		JButton btnWithdrawal = new JButton("withdrawal");
+		btnWithdrawal.setBounds(426, 385, 112, 29);
 		btnWithdrawal.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -127,11 +132,10 @@ public class clientUserInterface {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		springLayout.putConstraint(SpringLayout.NORTH, btnWithdrawal, 0, SpringLayout.NORTH, btnAddAccount);
-		springLayout.putConstraint(SpringLayout.WEST, btnWithdrawal, 6, SpringLayout.EAST, btnDeleteAccount);
 		frame.getContentPane().add(btnWithdrawal);
 		
 		JButton btnDeposit = new JButton("deposit");
+		btnDeposit.setBounds(594, 385, 91, 29);
 		btnDeposit.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -144,11 +148,10 @@ public class clientUserInterface {
 					}
 			}
 		});
-		springLayout.putConstraint(SpringLayout.NORTH, btnDeposit, 0, SpringLayout.NORTH, btnAddAccount);
-		springLayout.putConstraint(SpringLayout.WEST, btnDeposit, 23, SpringLayout.EAST, btnWithdrawal);
 		frame.getContentPane().add(btnDeposit);
 		
 		JButton btnTransfer = new JButton("Transfer");
+		btnTransfer.setBounds(56, 327, 96, 29);
 		btnTransfer.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -163,21 +166,94 @@ public class clientUserInterface {
 			
 			}
 		});
-		springLayout.putConstraint(SpringLayout.SOUTH, list, -6, SpringLayout.NORTH, btnTransfer);
-		springLayout.putConstraint(SpringLayout.EAST, list, 89, SpringLayout.WEST, btnTransfer);
-		springLayout.putConstraint(SpringLayout.WEST, btnTransfer, 56, SpringLayout.WEST, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.SOUTH, btnTransfer, -29, SpringLayout.NORTH, btnAddAccount);
 		frame.getContentPane().add(btnTransfer);
 		
 	
 		txtClientNameClient = new JTextField();
-		springLayout.putConstraint(SpringLayout.NORTH, list, 17, SpringLayout.SOUTH, txtClientNameClient);
-		springLayout.putConstraint(SpringLayout.EAST, list, 63, SpringLayout.EAST, txtClientNameClient);
-		springLayout.putConstraint(SpringLayout.NORTH, txtClientNameClient, 10, SpringLayout.NORTH, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.WEST, txtClientNameClient, 173, SpringLayout.WEST, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, txtClientNameClient, -201, SpringLayout.EAST, frame.getContentPane());
-		txtClientNameClient.setText("Client Name, Client Age");
+		txtClientNameClient.setBounds(173, 10, 365, 26);
+		txtClientNameClient.setText("Please Enter: Client Name, Client Age");
+		txtClientNameClient.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				String clientName = (String)JOptionPane.showInputDialog(frame, "What is your full name?",  "Customized Dialog", JOptionPane.PLAIN_MESSAGE, null, null, null);
+				String clientsAge = (String)JOptionPane.showInputDialog(frame, "What is your age?",  "Customized Dialog", JOptionPane.PLAIN_MESSAGE, null, null, null); 
+			
+			if (clientName != null && clientsAge != null) {
+				txtClientNameClient.setText(clientName + ", " + clientsAge);
+				client.setAge(Integer.parseInt(clientsAge));
+				return;
+			}
+			
+			}
+		});
 		frame.getContentPane().add(txtClientNameClient);
 		txtClientNameClient.setColumns(10);
+		
+		JTextArea txtrArr = new JTextArea();
+		txtrArr.setBounds(380, 332, 98, 16);
+		txtrArr.setText("ARR: " + client.calculateAverageRateOfReturn());
+		frame.getContentPane().add(txtrArr);
+		
+		JTextArea txtrTotalWealth = new JTextArea();
+		txtrTotalWealth.setBounds(524, 333, 112, 16);
+		txtrTotalWealth.setText("Total Wealth: ");
+		for (int i=0; i <client.getAccounts().size(); i++) {
+			
+		}
+		
+		if (client.getAccounts().size() > clientNumAccounts) {
+			txtrTotalWealth.setText("Total Wealth: " + client.calculateTotalWealth());
+		}
+		frame.getContentPane().add(txtrTotalWealth);
+		
+		JButton btnConsolidateAccounts = new JButton("Consolidate Accounts");
+		btnConsolidateAccounts.setBounds(1296, 97, 182, 29);
+		frame.getContentPane().add(btnConsolidateAccounts);
+		
+		txtFinancialAdvisor = new JTextField();
+		txtFinancialAdvisor.setText("Financial Advisor");
+		txtFinancialAdvisor.setBounds(857, 303, 130, 29);
+		frame.getContentPane().add(txtFinancialAdvisor);
+		txtFinancialAdvisor.setColumns(10);
+		
+		JButton btnConsoldiateAccounts = new JButton("Consolidate Accounts");
+		btnConsoldiateAccounts.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				advisor.consolidateAccounts(client);
+			}
+		});
+		btnConsoldiateAccounts.setBounds(857, 344, 169, 29);
+		frame.getContentPane().add(btnConsoldiateAccounts);
+		
+		JButton btnOptimalRiskBy = new JButton("Optimal Risk by Age");
+		btnOptimalRiskBy.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				JOptionPane.showMessageDialog(null, "Your current ARR is: " + client.calculateAverageRateOfReturn() + "%, which is..  the optimal ARR of " + advisor.optimalRiskByAgeBracket(client) + "% for your age bracket.");
+			}
+		});
+		btnOptimalRiskBy.setBounds(857, 373, 159, 29);
+		frame.getContentPane().add(btnOptimalRiskBy);
+		
+		JButton btnRecommendedHigherYield = new JButton("Recommended Higher Yield");
+		btnRecommendedHigherYield.setBounds(857, 405, 198, 29);
+		frame.getContentPane().add(btnRecommendedHigherYield);
+		
+		JTextArea txtrWealthDistributionBy = new JTextArea();
+		
+		txtrWealthDistributionBy.setText("Wealth Distribution by Account Type: \nSavings: /nCheckings:");
+		txtrWealthDistributionBy.setBounds(857, 52, 272, 74);
+		frame.getContentPane().add(txtrWealthDistributionBy);
+		
+		JTextArea txtrWealthDistributionBy_1 = new JTextArea();
+		txtrWealthDistributionBy_1.setText("Wealth Distribution by Account:");
+		//for (int i =0; i<Accounts.size(); i++) { 
+		//	txtrWealthDistributionBy_1.setText(client.calculatePercentagesByAccount() );
+		//}
+		txtrWealthDistributionBy_1.setBounds(857, 160, 277, 123);
+		frame.getContentPane().add(txtrWealthDistributionBy_1);
+		
+		
 	}
 }

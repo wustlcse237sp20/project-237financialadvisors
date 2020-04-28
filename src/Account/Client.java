@@ -47,6 +47,10 @@ public class Client {
 		Accounts.add(a);
 	}
 	
+	public void setAge(int age) {
+		this.age = age;
+	}
+	
 	public boolean transferMoney(int accountWithdrawNumber, int accountDepositNumber, double amount) {
 		int accountWithdraw = -1;
 		int accountDeposit = -1;
@@ -90,7 +94,7 @@ public class Client {
 	/**
 	 * Calculates the percentage of client's wealth that is in an account
 	 * @param 
-	 * @return the percentage of wealth in an account (int)
+	 * @return the percentage of wealth in an account (double)
 	 */
 	public void calculatePercentagesByAccount() {
 		double percentage = 0.0;
@@ -103,7 +107,7 @@ public class Client {
 	/**
 	 * Calculates the client's average rate of return across all accounts
 	 * @param 
-	 * @return client's average rate of return (int)
+	 * @return client's average rate of return (double)
 	 */
 	public double calculateAverageRateOfReturn() {
 		double ARR = 0.0;
