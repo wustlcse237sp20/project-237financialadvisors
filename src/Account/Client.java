@@ -82,9 +82,6 @@ public class Client {
 		return true;
 	}
 	
-	public void addAccount(Account a) {
-		Accounts.add(a);
-	}
 	
 	public boolean transferMoney(int accountWithdrawNumber, int accountDepositNumber, double amount) {
 		int accountWithdraw = -1;
