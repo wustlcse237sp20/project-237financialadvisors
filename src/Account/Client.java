@@ -82,10 +82,6 @@ public class Client {
 		return true;
 	}
 	
-	public void addAccount(Account a) {
-		Accounts.add(a);
-	}
-	
 	public void setAge(int age) {
 		this.age = age;
 	}
@@ -142,7 +138,6 @@ public class Client {
 			System.out.print(percentage + "% of your wealth is in account " + (i+1) + ", ");
 		}
 	}
-
 	/**
 	 * Calculates the client's average rate of return across all accounts
 	 * @param 
