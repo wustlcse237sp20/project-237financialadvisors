@@ -82,9 +82,6 @@ public class Client {
 		return true;
 	}
 	
-	public void addAccount(Account a) {
-		Accounts.add(a);
-	}
 	
 	public void setAge(int age) {
 		this.age = age;
