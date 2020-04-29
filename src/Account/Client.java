@@ -55,6 +55,7 @@ public class Client {
 		return false;
 	}
 
+
 	/**
 	 * enables client to be able to transfer money between accounts
 	 * @param accountWithdrawNumber
@@ -62,6 +63,33 @@ public class Client {
 	 * @param amount
 	 * @return true if successful 
 	 */
+	public boolean deposit(int accountNumber, int amount) {
+		int account = -1;
+		for (int i = 0; i<Accounts.size(); i++) {
+			if (accountNumber == Accounts.get(i).getAccountNumber()) {
+				account = i;
+			}
+		}
+		Accounts.get(account).deposit(amount);
+		return true;
+	}
+	
+	public boolean withdraw(int accountNumber, int amount) {
+		int account = -1;
+		for (int i = 0; i<Accounts.size(); i++) {
+			if (accountNumber == Accounts.get(i).getAccountNumber()) {
+				account = i;
+			}
+		}
+		Accounts.get(account).withdraw(amount);
+		return true;
+	}
+	
+	
+	public void setAge(int age) {
+		this.age = age;
+	}
+	
 	public boolean transferMoney(int accountWithdrawNumber, int accountDepositNumber, double amount) {
 		int accountWithdraw = -1;
 		int accountDeposit = -1;
@@ -109,7 +137,7 @@ public class Client {
 	/**
 	 * Calculates the percentage of client's wealth that is in an account
 	 * @param 
-	 * @return the percentage of wealth in an account (int)
+	 * @return the percentage of wealth in an account (double)
 	 */
 	public void calculatePercentagesByAccount() {
 		double percentage = 0.0;
@@ -122,7 +150,7 @@ public class Client {
 	/**
 	 * Calculates the client's average rate of return across all accounts
 	 * @param 
-	 * @return client's average rate of return (int)
+	 * @return client's average rate of return (double)
 	 */
 	public double calculateAverageRateOfReturn() {
 		double ARR = 0.0;

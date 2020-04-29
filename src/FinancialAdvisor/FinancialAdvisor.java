@@ -149,4 +149,32 @@ public class FinancialAdvisor {
 		
 		return averageRateOfReturn;
 	}
+	
+	/**
+	 * Determines if the client has to open up an account with a higher yield that maximizes their returns
+	 * @param client
+	 * @return boolean if task is done or not
+	 */	
+	public boolean recommendHigherYieldAccounts(Client client) {
+		boolean recommendedAccount = false;
+		List<Account> clientAccounts = client.getAccounts();
+		
+		for (int i = 0; i < clientAccounts.size(); i++) {
+			if (clientAccounts.get(i).getAccountType() == "checkings") {
+				if (clientAccounts.get(i).getInterestRate() < 0.2) {
+					System.out.print("Consider opening a Capital One 360 Checking account for a higher yield of 0.20% APY");
+					recommendedAccount = true;
+				}
+			}
+			
+			else if (clientAccounts.get(i).getAccountType() == "savings") {
+				if (clientAccounts.get(i).getInterestRate() < 1.5) {
+					System.out.print("Consider opening a Capital One 360 Performance Savings account for a higher yield of 1.50% APY");
+					recommendedAccount = true;
+				}
+			}	
+		}
+		
+		return recommendedAccount;
+	}
 }
