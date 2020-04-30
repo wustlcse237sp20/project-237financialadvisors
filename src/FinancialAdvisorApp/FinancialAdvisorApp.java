@@ -41,7 +41,7 @@ public class FinancialAdvisorApp {
 		type.close();
 		newClient.getAverageRateOfReturn();
 		newClient.generateAccounts();
-		newClient.calculatePercentagesByAccount();
+		newClient.calculatePercentagesByAccount(newClient);
 		financialAdvisor.optimalRiskByAgeBracket(newClient);
 		financialAdvisor.consolidateAccounts(newClient);
 		//a.calculatePercentagesByAccountType();

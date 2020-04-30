@@ -82,17 +82,8 @@ public class clientUserInterface {
 		JList<Account> list = new JList<Account>(listModel);
 		list.setBounds(21, 52, 784, 269);
 		list.setBackground(Color.WHITE);
+		list.setFixedCellHeight(20);
 		frame.getContentPane().add(list);
-
-		//wealth distribution by account list
-		DefaultListModel<String> accountPercentage = new DefaultListModel<>();
-		for (int i=0; i<client.Accounts.size(); i++) {
-			accountPercentage.addElement(client.calculatePercentagesByAccount(client));
-		}
-		JList<String> wealthDistributionByAccount = new JList<String>(accountPercentage);
-		wealthDistributionByAccount.setBounds(857, 81, 277, 187);
-		list.setBackground(Color.WHITE);
-		frame.getContentPane().add(wealthDistributionByAccount);
 		
 		//ARR text
 		JTextArea txtrArr = new JTextArea();
@@ -111,11 +102,17 @@ public class clientUserInterface {
 		btnConsoldiateAccounts.setBounds(857, 344, 169, 29);
 		btnConsoldiateAccounts.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mouseClicked(MouseEvent e) {	
 				advisor.consolidateAccounts(client);
 			}
 		});
 		frame.getContentPane().add(btnConsoldiateAccounts);
+		
+		// testing
+		JTextArea txtrS = new JTextArea();
+		txtrS.setText("Wealth Distribution by Account");
+		txtrS.setBounds(842, 85, 305, 181);
+		frame.getContentPane().add(txtrS);
 		
 		//add account button
 		JButton btnAddAccount = new JButton("add account");
@@ -151,8 +148,7 @@ public class clientUserInterface {
 				}
 			txtrArr.setText("ARR: " + client.calculateAverageRateOfReturn());
 			txtrTotalWealth.setText("Total Wealth: " + client.calculateTotalWealth());
-			accountPercentage.addElement(client.calculatePercentagesByAccount(client));
-	
+			txtrS.setText(client.calculatePercentagesByAccount(client) + "\n");
 			return;
 			}
 		});
@@ -164,10 +160,9 @@ public class clientUserInterface {
 		btnDeleteAccount.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) { 
-				accountPercentage.remove(list.getSelectedIndex());
-				wealthDistributionByAccount.remove(list.getSelectedIndex());
 				client.deleteAccount(list.getSelectedValue().getAccountNumber());
 				listModel.removeElement(list.getSelectedValue());
+				txtrS.setText(client.calculatePercentagesByAccount(client) + "\n");
 				return;
 			}
 		});
@@ -189,6 +184,7 @@ public class clientUserInterface {
 					if (withdrawal != null && list.getSelectedIndex() > -1) {
 						double withdrawAmount = Double.parseDouble(withdrawal);	
 						client.getAccounts().get(list.getSelectedIndex()).withdraw(withdrawAmount);
+						txtrS.setText(client.calculatePercentagesByAccount(client) + "\n");
 						return;
 					}
 				}
@@ -213,8 +209,7 @@ public class clientUserInterface {
 					client.getAccounts().get(list.getSelectedIndex()).deposit(depositAmount);
 					txtrTotalWealth.setText("Total Wealth: " + client.calculateTotalWealth());
 					txtrArr.setText("ARR: " + client.calculateAverageRateOfReturn());
-					accountPercentage.remove(list.getSelectedIndex());
-					accountPercentage.addElement(client.calculatePercentagesByAccount(client) + " " + list.getSelectedValue().getAccountNumber() + "\n");
+					txtrS.setText(client.calculatePercentagesByAccount(client) + "\n");
 					return;
 					}
 			}
@@ -254,8 +249,7 @@ public class clientUserInterface {
 				txtClientNameClient.setText(clientName + ", " + clientsAge);
 				client.setAge(Integer.parseInt(clientsAge));
 				return;
-			}
-			
+				}
 			}
 		});
 		frame.getContentPane().add(txtClientNameClient);
@@ -274,7 +268,7 @@ public class clientUserInterface {
 		btnOptimalRiskBy.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				JOptionPane.showMessageDialog(frame, "Your current ARR is: " + client.calculateAverageRateOfReturn() + "%, which is..  the optimal ARR of " + advisor.optimalRiskByAgeBracket(client) + "% for your age bracket.");
+				JOptionPane.showMessageDialog(frame, "Your current ARR is: " + client.calculateAverageRateOfReturn() + "%, which is..  the optimal ARR of...  % for your age bracket.");
 			}
 		});
 		btnOptimalRiskBy.setBounds(857, 373, 159, 29);
@@ -290,6 +284,7 @@ public class clientUserInterface {
 		});
 		btnRecommendedHigherYield.setBounds(857, 405, 198, 29);
 		frame.getContentPane().add(btnRecommendedHigherYield);
+		
 		
 	}
 }

@@ -146,7 +146,7 @@ public class Client {
 			percentage = Math.round((Accounts.get(i).getBalance()/calculateTotalWealth())*10000.0)/100.0;
 			percentagesByAccount[i] = percentage;
 			System.out.print(percentage + "% of your wealth is in account # " + (i+1) + ", ");
-			percentageString  = percentageString + percentage + " % of your wealth is in account";
+			percentageString  = percentageString + percentage + " % of your wealth is in account " + client.Accounts.get(i).getAccountNumber() + "\n";
 		}
 		return percentageString;
 	}
