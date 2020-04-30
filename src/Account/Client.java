@@ -139,12 +139,17 @@ public class Client {
 	 * @param 
 	 * @return the percentage of wealth in an account (double)
 	 */
-	public void calculatePercentagesByAccount() {
+	public String calculatePercentagesByAccount(Client client) {
 		double percentage = 0.0;
+		double percentagesByAccount[] = new double[client.Accounts.size()];
+		String percentageString = "";
 		for (int i =0; i<Accounts.size(); i++) {
-			percentage = Math.round((Accounts.get(i).getBalance()/totalWealth)*10000.0)/100.0;
-			System.out.print(percentage + "% of your wealth is in account " + (i+1) + ", ");
+			percentage = Math.round((Accounts.get(i).getBalance()/calculateTotalWealth())*10000.0)/100.0;
+			percentagesByAccount[i] = percentage;
+			System.out.print(percentage + "% of your wealth is in account # " + (i+1) + ", ");
+			percentageString  = percentageString + percentage + " % of your wealth is in account";
 		}
+		return percentageString;
 	}
 
 	/**
@@ -157,7 +162,7 @@ public class Client {
 		for (int i=0; i<Accounts.size(); i++) {
 			ARR = ARR + (Accounts.get(i).getInterestRate())*Accounts.get(i).getBalance();
 		}
-		ARR = Math.round((ARR/(totalWealth))*100.0)/100.0;
+		ARR = Math.round((ARR/(calculateTotalWealth()))*100.0)/100.0;
 		System.out.println("Your average rate of return across all accounts is: " +  ARR);
 		return ARR;
 	}

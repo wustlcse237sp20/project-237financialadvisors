@@ -78,7 +78,7 @@ public class ClientTests {
 		ByteArrayOutputStream os = new ByteArrayOutputStream();
 		PrintStream ps = new PrintStream(os);
 		System.setOut(ps);
-		one.calculatePercentagesByAccount();
+		one.calculatePercentagesByAccount(one);
 		assertEquals("25.0% of your wealth is in account 1, 15.0% of your wealth is in account 2, 35.0% of your wealth is in account 3, 15.0% of your wealth is in account 4, 10.0% of your wealth is in account 5, ", os.toString());
 		os.reset();
 		try {
