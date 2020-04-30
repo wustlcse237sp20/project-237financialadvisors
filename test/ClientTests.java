@@ -40,11 +40,10 @@ public class ClientTests {
 		e.deposit(200.0);
 		Accounts.add(e);
 		one = new Client(Accounts, 27);
-		
 	}
-
+	
 	@Test
-	public void testGetTotalWealth() {
+	public void testCalculateTotalWealth() {
 		assertTrue(one.getTotalWealth() == 2000.0);
 	}
 	
@@ -53,7 +52,24 @@ public class ClientTests {
 		System.out.println("Value: " + one.getAverageRateOfReturn());
 		assertTrue(one.getAverageRateOfReturn() == 3.75);
 	}
-
+	
+	@Test
+	public void testGenerateAccounts() {
+		//Prepare to redirect output
+		ByteArrayOutputStream os = new ByteArrayOutputStream();
+		PrintStream ps = new PrintStream(os);
+		System.setOut(ps);
+		one.generateAccounts();
+		assertEquals("Account 1: ", os.toString());
+		os.reset();
+		try {
+			os.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		ps.close();
+	}
 	
 	//output stream code from https://limzhenghong.wordpress.com/2015/03/18/junit-with-system-out-println/
 	@Test
@@ -62,7 +78,7 @@ public class ClientTests {
 		ByteArrayOutputStream os = new ByteArrayOutputStream();
 		PrintStream ps = new PrintStream(os);
 		System.setOut(ps);
-		one.calculatePercentagesByAccount();
+		one.calculatePercentagesByAccount(one);
 		assertEquals("25.0% of your wealth is in account 1, 15.0% of your wealth is in account 2, 35.0% of your wealth is in account 3, 15.0% of your wealth is in account 4, 10.0% of your wealth is in account 5, ", os.toString());
 		os.reset();
 		try {
@@ -82,9 +98,27 @@ public class ClientTests {
 	}
 	
 	@Test
+	public void testTransferMoneyNegative() {
+		assertFalse(one.transferMoney(12345678, 87654321, -100.0));
+	}
+	
+	@Test
+	public void testTransferMoneyNonexistantAccount() {
+		assertFalse(one.transferMoney(123456789, 87654321, 100.0));
+		assertFalse(one.transferMoney(12345678, 876543210, 100.0));
+	}
+	
+	@Test
 	public void testDeleteAccount() {
 		one.deleteAccount(34561278);
 		assertTrue(Accounts.size()==4);
+	}
+	
+	@Test
+	public void testDeleteNonexistantAccount() {
+		assertFalse(one.deleteAccount(547392834));
+		assertTrue(Accounts.size()==5); 
+		assertFalse(Accounts.size()==4);
 	}
 	
 	@Test
@@ -103,23 +137,32 @@ public class ClientTests {
 		one.interestRateCalculator(one, 5, 12);
 		assertTrue(one.getTotalWealth() == 2411.76);
 	}
-
-	public void testNumberOfATypeOfAccount() {
-		List<Account> Accounts = new ArrayList<Account>();
-		Account a = new Account("savings", "chase", 0.2, 500.0, 12345678);
-		Accounts.add(a);
-		Account b = new Account("checkings", "boa", 0.0, 100.0, 99876554);
-		Accounts.add(b);
-		Account c = new Account("savings", "chase", 0.2, 500.0, 28374958);
-		Accounts.add(c);
-		Client client = new Client(Accounts, 30);
+	
+	public void testInterestRateCalculatorNegativeComponent() {
+		assertFalse(one.interestRateCalculator(one, -5, 12));
+		assertTrue(one.interestRateCalculator(one, 5, -12));
+		assertTrue(one.getTotalWealth() == 2000.0);
 		
-		assertEquals(2, client.numberOfATypeOfAccount(client, "savings"));
+	}
+	
+	@Test
+	public void testNumberOfATypeOfAccount() {
+		assertEquals(2, one.numberOfATypeOfAccount(one, "investments"));
+		assertEquals(1, one.numberOfATypeOfAccount(one, "savings"));
+		assertEquals(1, one.numberOfATypeOfAccount(one, "checkings"));
+		assertEquals(1, one.numberOfATypeOfAccount(one, "bonds"));
 	}
 	
 	@Test
 	public void testFindHighestInterestRate() {
 		assertTrue(one.findHighestInterestRate(one.getAccounts()) == e);
+	}
+	
+	@Test
+	public void testAddAccount() {
+		Account f = new Account("savings", "ally", 1.0, 250.0, 76584321);
+		one.addAccount(f);
+		assertTrue(Accounts.size() == 6);
 	}
 	
 }

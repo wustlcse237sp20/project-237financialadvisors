@@ -31,11 +31,11 @@ public class Client {
 	public double getAverageRateOfReturn() {
 		return ARR;
 	}
-	
+
 	public void addAccount(Account a) {
 		Accounts.add(a);
 	}
-	
+
 	/**
 	 * 
 	 * @param accountNumber
@@ -48,8 +48,11 @@ public class Client {
 				account = i;
 			}
 		}
-		Accounts.remove(account);
-		return true;
+		if (account != -1) {
+			Accounts.remove(account);
+			return true;
+		}
+		return false;
 	}
 
 
@@ -81,7 +84,7 @@ public class Client {
 		Accounts.get(account).withdraw(amount);
 		return true;
 	}
-	
+
 	public void setAge(int age) {
 		this.age = age;
 	}
@@ -96,10 +99,13 @@ public class Client {
 			if (accountDepositNumber == Accounts.get(i).getAccountNumber()) {
 				accountDeposit = i;
 			}
+		} 
+		if ((accountWithdraw != -1) && (accountDeposit != -1) && (amount > 0.0)) {
+			Accounts.get(accountWithdraw).withdraw(amount); 
+			Accounts.get(accountDeposit).deposit(amount);
+			return true;
 		}
-		Accounts.get(accountWithdraw).withdraw(amount); 
-		Accounts.get(accountDeposit).deposit(amount);
-		return true;
+		return false;
 	}
 
 	/**
@@ -112,6 +118,7 @@ public class Client {
 			System.out.println(Accounts.get(i));
 		}
 	}
+	
 	/**
 	 * Calculates the client's total wealth
 	 * @param 
@@ -131,12 +138,17 @@ public class Client {
 	 * @param 
 	 * @return the percentage of wealth in an account (double)
 	 */
-	public void calculatePercentagesByAccount() {
+	public String calculatePercentagesByAccount(Client client) {
 		double percentage = 0.0;
+		double percentagesByAccount[] = new double[client.Accounts.size()];
+		String percentageString = "";
 		for (int i =0; i<Accounts.size(); i++) {
-			percentage = Math.round((Accounts.get(i).getBalance()/totalWealth)*10000.0)/100.0;
-			System.out.print(percentage + "% of your wealth is in account " + (i+1) + ", ");
+			percentage = Math.round((Accounts.get(i).getBalance()/calculateTotalWealth())*10000.0)/100.0;
+			percentagesByAccount[i] = percentage;
+			System.out.print(percentage + "% of your wealth is in account # " + (i+1) + ", ");
+			percentageString  = percentageString + percentage + " % of your wealth is in account";
 		}
+		return percentageString;
 	}
 	/**
 	 * Calculates the client's average rate of return across all accounts
@@ -148,7 +160,7 @@ public class Client {
 		for (int i=0; i<Accounts.size(); i++) {
 			ARR = ARR + (Accounts.get(i).getInterestRate())*Accounts.get(i).getBalance();
 		}
-		ARR = Math.round((ARR/(totalWealth))*100.0)/100.0;
+		ARR = Math.round((ARR/(calculateTotalWealth()))*100.0)/100.0;
 		System.out.println("Your average rate of return across all accounts is: " +  ARR);
 		return ARR;
 	}
@@ -167,7 +179,6 @@ public class Client {
 				numberOfThisAccountType += 1;
 			}
 		}
-
 		return numberOfThisAccountType;
 	}
 
@@ -185,10 +196,9 @@ public class Client {
 				highestRateAccount = Accounts.get(i);
 			}
 		}
-
 		return highestRateAccount;
 	}
-	
+
 	/**
 	 * 
 	 * @param client
@@ -196,11 +206,14 @@ public class Client {
 	 * @param compound (number of times per year)
 	 * @return updated totalWealth
 	 */
-	public double interestRateCalculator (Client client, int years, int compound) {
-		double interestRate = client.getAverageRateOfReturn();
-		double interestGenerated = Math.pow(1+((interestRate*0.01)/compound), 60);
-		totalWealth = Math.round((client.getTotalWealth()*interestGenerated)*100.0)/100.0;
-		return totalWealth;
+	public boolean interestRateCalculator (Client client, int years, int compound) {
+		if ((years>0) && (compound>0)) {
+			double interestRate = client.getAverageRateOfReturn();
+			double interestGenerated = Math.pow(1+((interestRate*0.01)/compound), 60);
+			totalWealth = Math.round((client.getTotalWealth()*interestGenerated)*100.0)/100.0;
+			return true;
+		}
+		return false;
 	}
 
 }

@@ -214,7 +214,7 @@ public class clientUserInterface {
 					txtrTotalWealth.setText("Total Wealth: " + client.calculateTotalWealth());
 					txtrArr.setText("ARR: " + client.calculateAverageRateOfReturn());
 					accountPercentage.remove(list.getSelectedIndex());
-					accountPercentage.addElement(client.calculatePercentagesByAccount(client));
+					accountPercentage.addElement(client.calculatePercentagesByAccount(client) + " " + list.getSelectedValue().getAccountNumber() + "\n");
 					return;
 					}
 			}
