@@ -33,7 +33,7 @@ public class ValidatorTests {
 	}
 	@Test
 	public void testValidateTransactionAmountGoodAmount() {
-		String transactionAmount = "999";
+		String transactionAmount = "999.99";
 		boolean result = Validator.validateTransactionAmount(transactionAmount);
 		assertTrue("Should have returned true because it is a valid transaction amount", result);
 	}
