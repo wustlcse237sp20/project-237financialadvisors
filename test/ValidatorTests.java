@@ -27,7 +27,7 @@ public class ValidatorTests {
 	
 	@Test
 	public void testValidateTransactionAmountBadAmount() {
-		String transactionAmount = "alskdjf;awiejf";
+		String transactionAmount = "999.999";
 		boolean result = Validator.validateTransactionAmount(transactionAmount);
 		assertFalse("Should have returned false because it is not a valid transaction amount", result);
 	}

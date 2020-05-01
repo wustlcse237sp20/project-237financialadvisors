@@ -19,7 +19,7 @@ public class Validator {
 	 * @return
 	 */
 	public static boolean validateTransactionAmount(String transactionAmount) {
-		return Pattern.matches("^(0|[1-9]\\d*)(\\.\\d+)?$", transactionAmount);
+		return Pattern.matches("^[0-9]+(\\.[0-9]{1,2})?$", transactionAmount);
 	}
 	
 	/**
