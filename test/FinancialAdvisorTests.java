@@ -21,13 +21,18 @@ public class FinancialAdvisorTests {
 		FinancialAdvisor f = new FinancialAdvisor(client);
 		
 		Account a = new Account("savings", "chase", 0.2, 500.0, 12345678);
+		a.deposit(100.0);
 		Accounts.add(a);
 		Account b = new Account("checkings", "boa", 0.0, 100.0, 99876554);
+		b.deposit(100.0);
 		Accounts.add(b);
 		Account c = new Account("savings", "chase", 0.5, 500.0, 28374958);
+		c.deposit(100.0);
 		Accounts.add(c);
 		f.consolidateAccounts(client);
 		assertTrue(Accounts.size() == 2);
+		assertTrue(c.getBalance() == 200.0);
+		
 	}
 	
 	@Test
