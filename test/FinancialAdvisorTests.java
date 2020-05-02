@@ -27,11 +27,11 @@ public class FinancialAdvisorTests {
 		b.deposit(100.0);
 		Accounts.add(b);
 		Account c = new Account("savings", "chase", 0.5, 500.0, 28374958);
-		c.deposit(100.0);
+		c.deposit(0.0);
 		Accounts.add(c);
 		f.consolidateAccounts(client);
 		assertTrue(Accounts.size() == 2);
-		assertTrue(c.getBalance() == 200.0);
+		assertTrue(c.getBalance() == 100.0);
 		
 	}
 	
