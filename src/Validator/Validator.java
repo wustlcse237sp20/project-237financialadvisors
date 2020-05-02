@@ -14,12 +14,21 @@ public class Validator {
 	}
 	
 	/**
-	 * Simple regex to check transaction amount is a double
-	 * @param transaction amount
+	 * Simple regex to check if a number is a double with 2 decimals
+	 * @param doubleInput
 	 * @return
 	 */
-	public static boolean validateTransactionAmount(String transactionAmount) {
-		return Pattern.matches("([1-9]|[1-8][0-9]|9[0-9]|[1-8][0-9]{2}|9[0-8][0-9]|99[0-9]|[1-8][0-9]{3}|9[0-8][0-9]{2}|99[0-8][0-9]|999[0-9]|10000)", transactionAmount);
+	public static boolean validateDoubleInput(String doubleInput) {
+		return Pattern.matches("^[0-9]+(\\.[0-9]{1,2})?$", doubleInput);
+	}
+	
+	/**
+	 * Simple regex to check if a number is an int (no decimals)
+	 * @param intInput
+	 * @return
+	 */
+	public static boolean validateIntInput(String intInput) {
+		return Pattern.matches("^\\d+$", intInput);
 	}
 	
 	/**
