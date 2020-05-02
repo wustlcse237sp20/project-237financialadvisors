@@ -32,6 +32,10 @@ public class Client {
 		return ARR;
 	}
 
+	public void setAge(int age) {
+		this.age = age;
+	}
+
 	public void addAccount(Account a) {
 		Accounts.add(a);
 	}
@@ -63,33 +67,34 @@ public class Client {
 	 * @param amount
 	 * @return true if successful 
 	 */
-	public boolean deposit(int accountNumber, int amount) {
+	public boolean deposit(int accountNumber, double amount) {
 		int account = -1;
 		for (int i = 0; i<Accounts.size(); i++) {
 			if (accountNumber == Accounts.get(i).getAccountNumber()) {
 				account = i;
 			}
 		}
-		Accounts.get(account).deposit(amount);
-		return true;
+		if (account != -1) {
+			Accounts.get(account).deposit(amount);
+			return true;
+		}
+		return false;
 	}
-	
-	public boolean withdraw(int accountNumber, int amount) {
+
+	public boolean withdraw(int accountNumber, double amount) {
 		int account = -1;
 		for (int i = 0; i<Accounts.size(); i++) {
 			if (accountNumber == Accounts.get(i).getAccountNumber()) {
 				account = i;
 			}
 		}
-		Accounts.get(account).withdraw(amount);
-		return true;
+		if (account != -1) {
+			Accounts.get(account).withdraw(amount);
+			return true;
+		}
+		return false;
 	}
-	
-	
-	public void setAge(int age) {
-		this.age = age;
-	}
-	
+
 	public boolean transferMoney(int accountWithdrawNumber, int accountDepositNumber, double amount) {
 		int accountWithdraw = -1;
 		int accountDeposit = -1;
@@ -119,7 +124,7 @@ public class Client {
 			System.out.println(Accounts.get(i));
 		}
 	}
-	
+
 	/**
 	 * Calculates the client's total wealth
 	 * @param 
@@ -130,7 +135,7 @@ public class Client {
 		for (int i =0; i<Accounts.size(); i++) {
 			totalWealth = totalWealth + Accounts.get(i).getBalance();
 		}
-		System.out.println("Your total wealth is: $" + totalWealth);
+		//System.out.println("Your total wealth is: $" + totalWealth);
 		return totalWealth;
 	}
 

@@ -68,7 +68,7 @@ public class Account {
 	}
 
 	public String toString() {
-		return "Account Type: " + accountType + ", " + bankName + ", Account #: " + accountNumber + ", Balance: " + accountBalance + ", Interest Rate:" + interestRate + ", " + "Amount allowed to overdraw: " + overdrawAllowed; 
+		return "Account Type: " + accountType + ", " + bankName + ", Account #: " + accountNumber + ", Balance: " + accountBalance + ", Interest Rate: " + interestRate + ", " + "Amount allowed to overdraw: " + overdrawAllowed; 
 	}
 
 }
