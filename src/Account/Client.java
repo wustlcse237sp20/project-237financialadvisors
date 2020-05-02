@@ -216,12 +216,28 @@ public class Client {
 	public String interestRateCalculator (Client client, int years, int compound) {
 		double totalWealthFuture = 0.0;
 		if ((years>0) && (compound>0)) {
-			double interestRate = client.getAverageRateOfReturn();
-			double interestGenerated = Math.pow(1+((interestRate*0.01)/compound), 60);
+			double interestRate = client.calculateAverageRateOfReturn();
+			double interestGenerated = Math.pow(1+((interestRate*0.01)/compound), years*compound);
 			totalWealthFuture = Math.round((client.calculateTotalWealth()*interestGenerated)*100.0)/100.0;
-			return "In " + years + " years you will have: $" + totalWealthFuture;
+			String message = "In " + years + " years you will have: $" + totalWealthFuture;
+			System.out.println("In " + years + " years you will have: $" + totalWealthFuture);
+			return message;
 		}
-		return "Enter appropriate inputs";
+		String x = "Enter appropriate inputs";
+		System.out.print("Enter appropriate inputs");
+		return x;
+	}
+	
+	public boolean duplicateAccountNumber(Client client, int accountNumber) {
+		for (int i = 0; i <client.getAccounts().size(); i++) {
+			if (client.getAccounts().get(i).getAccountNumber() == accountNumber) {
+				return false;
+			}
+			else {
+				return true;
+			}
+		}
+		return true;
 	}
 
 }

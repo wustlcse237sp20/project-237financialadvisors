@@ -128,6 +128,7 @@ public class clientUserInterface {
 		btnAddAccount.addMouseListener(new MouseAdapter() {
 			 @Override
 			public void mouseClicked(MouseEvent e) {
+				 Account newAccount = new Account(null, null, 0, 0.0, 0);
 				 String name = null;
 				 String interest = null;
 				 String overdraw = null;
@@ -148,12 +149,17 @@ public class clientUserInterface {
 		 	if (Validator.validateAccountNumber(accountNumber) != true) {
 		 		JOptionPane.showMessageDialog(frame, "Your account number must be 8 digits long, please re-enter account information");
 		 	}
+		 	if (client.duplicateAccountNumber(client, Integer.parseInt(accountNumber)) == false) {
+		 		JOptionPane.showMessageDialog(frame, "Account number already exists. Please enter new account information.");
+		 	}
 		 	
+		 	else {
 			if (type != null && name != null && interest != null && overdraw != null && accountNumber != null && Validator.validateAccountNumber(accountNumber) == true && Validator.validateAccountType(type) == true) {
-					Account newAccount = new Account(type, name, Double.parseDouble(interest), Double.parseDouble(overdraw), Integer.parseInt(accountNumber));
+					newAccount = new Account(type, name, Double.parseDouble(interest), Double.parseDouble(overdraw), Integer.parseInt(accountNumber));
 					client.addAccount(newAccount);
 					listModel.addElement(newAccount);
 				}
+		 	}
 			txtrArr.setText("ARR: " + client.calculateAverageRateOfReturn());
 			txtrTotalWealth.setText("Total Wealth: " + client.calculateTotalWealth());
 			txtrS.setText(client.calculatePercentagesByAccount(client) + "\n");
