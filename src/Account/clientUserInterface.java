@@ -72,6 +72,7 @@ public class clientUserInterface {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		int clientAge = 0;
 		client = new Client(Accounts, clientAge); 
+		advisor = new FinancialAdvisor();
 		
 		//account list
 		DefaultListModel<Account> listModel = new DefaultListModel<>();
@@ -102,8 +103,15 @@ public class clientUserInterface {
 		btnConsoldiateAccounts.setBounds(857, 344, 169, 29);
 		btnConsoldiateAccounts.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {	
-				advisor.consolidateAccounts(client);
+			public void mouseClicked(MouseEvent e) {
+				System.out.println(client.getAccounts());
+				if (advisor.consolidateAccounts(client)) {
+					advisor.consolidateAccounts(client);
+					JOptionPane.showMessageDialog(frame, "Accounts have been consolidated. Delete corresponding accounts with balance of zero.");
+				}
+				else {
+					JOptionPane.showMessageDialog(frame, "Consolidation not necessary.");
+				}
 			}
 		});
 		frame.getContentPane().add(btnConsoldiateAccounts);
@@ -125,7 +133,7 @@ public class clientUserInterface {
 				 String overdraw = null;
 				 String accountNumber = null;
 				 
-				 String type = (String)JOptionPane.showInputDialog(frame, "Enter account type", "Customized Dialog", JOptionPane.PLAIN_MESSAGE, null, null, null);
+				 String type = (String)JOptionPane.showInputDialog(frame, "Enter account type (savings, checkings, stocks, bonds)", "Customized Dialog", JOptionPane.PLAIN_MESSAGE, null, null, null);
 				 if (Validator.validateAccountType(type) != true) {
 				 		JOptionPane.showMessageDialog(frame, "Please enter a valid acount type\n(checkings, savings, stocks, or bonds)");
 				 	}
@@ -134,7 +142,7 @@ public class clientUserInterface {
 		 		  name = (String)JOptionPane.showInputDialog(frame, "Enter bank name", "Customized Dialog", JOptionPane.PLAIN_MESSAGE, null, null, null);
 		 		  interest = (String)JOptionPane.showInputDialog(frame, "Enter interest rate", "Customized Dialog", JOptionPane.PLAIN_MESSAGE, null, null, null); 		  
 		 		  overdraw = (String)JOptionPane.showInputDialog(frame, "Enter overdraw allowed ", "Customized Dialog", JOptionPane.PLAIN_MESSAGE, null, null, null);
-			 	  accountNumber = (String)JOptionPane.showInputDialog(frame, "Enter account number", "Customized Dialog", JOptionPane.PLAIN_MESSAGE, null, null, null);
+			 	  accountNumber = (String)JOptionPane.showInputDialog(frame, "Enter your 8 digit account number", "Customized Dialog", JOptionPane.PLAIN_MESSAGE, null, null, null);
 				 }
 		 		 
 		 	if (Validator.validateAccountNumber(accountNumber) != true) {
@@ -228,6 +236,9 @@ public class clientUserInterface {
 				if (accountTransferTo != null && transferAmount != null && list.getSelectedIndex() > -1) {
 					double amountToTransfer = Double.parseDouble(transferAmount);
 					client.transferMoney(list.getSelectedValue().getAccountNumber(), Integer.parseInt(accountTransferTo), amountToTransfer);
+					txtrTotalWealth.setText("Total Wealth: " + client.calculateTotalWealth());
+					txtrArr.setText("ARR: " + client.calculateAverageRateOfReturn());
+					txtrS.setText(client.calculatePercentagesByAccount(client) + "\n");
 					return;
 				}
 			
@@ -238,7 +249,7 @@ public class clientUserInterface {
 		// client info
 		txtClientNameClient = new JTextField();
 		txtClientNameClient.setBounds(173, 10, 365, 26);
-		txtClientNameClient.setText("Please Enter: Client Name, Client Age");
+		txtClientNameClient.setText("Click here to enter client name and age");
 		txtClientNameClient.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -262,13 +273,13 @@ public class clientUserInterface {
 		frame.getContentPane().add(txtFinancialAdvisor);
 		txtFinancialAdvisor.setColumns(10);
 		
-		
 		// optimal risk button
 		JButton btnOptimalRiskBy = new JButton("Optimal Risk by Age");
 		btnOptimalRiskBy.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				JOptionPane.showMessageDialog(frame, "Your current ARR is: " + client.calculateAverageRateOfReturn() + "%, which is..  the optimal ARR of...  % for your age bracket.");
+				String msg = advisor.optimalRiskByAgeBracket(client);
+				JOptionPane.showMessageDialog(frame, msg);
 			}
 		});
 		btnOptimalRiskBy.setBounds(857, 373, 159, 29);
@@ -279,12 +290,24 @@ public class clientUserInterface {
 		btnRecommendedHigherYield.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
+				JOptionPane.showMessageDialog(frame, advisor.recommendHigherYieldAccounts(client));
 			}
 		});
 		btnRecommendedHigherYield.setBounds(857, 405, 198, 29);
 		frame.getContentPane().add(btnRecommendedHigherYield);
 		
-		
+		JButton btnInterestRateCalculator = new JButton("Interest Rate Calculator");
+		btnInterestRateCalculator.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				String years = (String)JOptionPane.showInputDialog(frame, "How many years would you like to compound interest rate for?",  "Customized Dialog", JOptionPane.PLAIN_MESSAGE, null, null, null);
+				String compoundRate = (String)JOptionPane.showInputDialog(frame, "How many times per year would you like to compound interest rate?",  "Customized Dialog", JOptionPane.PLAIN_MESSAGE, null, null, null); 
+				System.out.println(client.getTotalWealth());
+				JOptionPane.showMessageDialog(frame, client.interestRateCalculator(client, Integer.parseInt(years), Integer.parseInt(compoundRate)));
+			}
+		});
+		btnInterestRateCalculator.setBounds(164, 327, 188, 29);
+		frame.getContentPane().add(btnInterestRateCalculator);
+			
 	}
 }
