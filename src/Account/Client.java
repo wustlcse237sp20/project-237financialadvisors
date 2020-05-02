@@ -228,6 +228,12 @@ public class Client {
 		return x;
 	}
 	
+	/**
+	 * 
+	 * @param client
+	 * @param accountNumber
+	 * @return whether or not account number is a duplicate of existing account
+	 */
 	public boolean duplicateAccountNumber(Client client, int accountNumber) {
 		for (int i = 0; i <client.getAccounts().size(); i++) {
 			if (client.getAccounts().get(i).getAccountNumber() == accountNumber) {
