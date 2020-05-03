@@ -136,6 +136,7 @@ public class Client {
 			totalWealth = totalWealth + Accounts.get(i).getBalance();
 		}
 		//System.out.println("Your total wealth is: $" + totalWealth);
+		this.totalWealth = totalWealth;
 		return totalWealth;
 	}
 
@@ -168,7 +169,8 @@ public class Client {
 			ARR = ARR + (Accounts.get(i).getInterestRate())*Accounts.get(i).getBalance();
 		}
 		ARR = Math.round((ARR/(calculateTotalWealth()))*100.0)/100.0;
-		System.out.println("Your average rate of return across all accounts is: " +  ARR);
+		//System.out.println("Your average rate of return across all accounts is: " +  ARR);
+		this.ARR = ARR;
 		return ARR;
 	}
 
@@ -213,14 +215,34 @@ public class Client {
 	 * @param compound (number of times per year)
 	 * @return updated totalWealth
 	 */
-	public boolean interestRateCalculator (Client client, int years, int compound) {
+	public String interestRateCalculator (Client client, int years, int compound) {
+		double totalWealthFuture = 0.0;
 		if ((years>0) && (compound>0)) {
 			double interestRate = client.getAverageRateOfReturn();
-			double interestGenerated = Math.pow(1+((interestRate*0.01)/compound), 60);
-			totalWealth = Math.round((client.getTotalWealth()*interestGenerated)*100.0)/100.0;
-			return true;
+			double interestGenerated = Math.pow(1+((interestRate*0.01)/compound), years*compound);
+			totalWealthFuture = Math.round((client.calculateTotalWealth()*interestGenerated)*100.0)/100.0;
+			String message = "In " + years + " years you will have: $" + totalWealthFuture;
+			System.out.println("In " + years + " years you will have: $" + totalWealthFuture);
+			return message;
 		}
-		return false;
+		String x = "Enter appropriate inputs";
+		System.out.print("Enter appropriate inputs");
+		return x;
+	}
+
+	/**
+	 * 
+	 * @param client
+	 * @param accountNumber
+	 * @return whether or not account number is a duplicate of existing account
+	 */
+	public boolean duplicateAccountNumber(Client client, int accountNumber) {
+		for (int i = 0; i <client.getAccounts().size(); i++) {
+			if (client.getAccounts().get(i).getAccountNumber() == accountNumber) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 }

@@ -86,5 +86,7 @@ public class FinancialAdvisorApp {
 		System.out.println();
 		String accountList = "Account 1: " + "\n" + "Account Type: savings, chase, Account #: 12345678, Balance: 500.0, Interest Rate: 0.2, Amount allowed to overdraw: 500.0" + "\n" + "Account 2: " + "\n" + "Account Type: checkings, boa, Account #: 87654321, Balance: 300.0, Interest Rate: 0.0, Amount allowed to overdraw: 100.0" + "\n" + "Account 3: " + "\n" + "Account Type: investments, fidelity, Account #: 56781234, Balance: 700.0, Interest Rate: 7.0, Amount allowed to overdraw: 0.0" + "\n" + "Account 4: " + "\n" +"Account Type: bonds, etrade, Account #: 43218765, Balance: 300.0, Interest Rate: 3.0, Amount allowed to overdraw: 0.0" + "\n" + "Account 5: " + "\n" + "Account Type: investments, etrade, Account #: 34561278, Balance: 200.0, Interest Rate: 8.0, Amount allowed to overdraw: 0.0";
 		System.out.println(accountList);
+		
+		one.interestRateCalculator(one, 5, 12);
 	}
 }
