@@ -9,16 +9,6 @@ import Account.Account;
 
 public class FinancialAdvisor {
 	
-	private Client client;
-
-	public FinancialAdvisor(Client client) {
-		this.client = client;
-	}
-	
-	public Client getClient() {
-		return client;
-	}
-	
 	/**
 	 * Consolidates the client's accounts, checking for multiple accounts of the same type and determining
 	 * which has a higher interest rate then moving money around to optimize the client portfolio
@@ -29,8 +19,6 @@ public class FinancialAdvisor {
 	//can be broken up into multiple methods
 	public boolean consolidateAccounts(Client client) {
 		boolean accountConsolidated = false;
-		String outputMessage1 = "";
-		String outputMessage2 = "";
 		List<Account> clientAccounts = client.getAccounts();
 		List<Account> clientSavingsAccounts = new ArrayList<Account>();
 		List<Account> clientCheckingAccounts = new ArrayList<Account>();
@@ -38,45 +26,39 @@ public class FinancialAdvisor {
 		if (client.numberOfATypeOfAccount(client, "checkings") > 1) {
 			Account checkingsHighestAccount = new Account(null, null, 0, 0, 0);
 			for (int i = 0; i < clientAccounts.size(); i++) {
-					
-					if (clientAccounts.get(i).getAccountType() == "checkings") {
-						clientCheckingAccounts.add(clientAccounts.get(i));
+					if (clientAccounts.get(i).getAccountType().equals("checkings")) {
+						clientCheckingAccounts.add(client.getAccounts().get(i));
 					}
 			}
 			checkingsHighestAccount = client.findHighestInterestRate(clientCheckingAccounts);
-			outputMessage1 = "The highest checkings account interest rate is " + checkingsHighestAccount.getInterestRate() + ". You should transfer funds to the checkings account with this interest rate.";
 			clientCheckingAccounts.remove(checkingsHighestAccount);
 			
 			for (int i = 0; i < clientCheckingAccounts.size(); i++) {
 				int withdrawAccountNumber = clientCheckingAccounts.get(i).getAccountNumber();
 				client.transferMoney(withdrawAccountNumber, checkingsHighestAccount.getAccountNumber(), clientCheckingAccounts.get(i).getBalance());
 				client.deleteAccount(withdrawAccountNumber);
-			}
-			accountConsolidated = true;
+				accountConsolidated = true;
+		}
 		}
 		
 		else if (client.numberOfATypeOfAccount(client, "savings") > 1) {
 			Account savingsHighestAccount = new Account(null, null, 0, 0, 0);
 			for (int i = 0; i < clientAccounts.size(); i++) {
 				
-				if (clientAccounts.get(i).getAccountType() == "savings") {
-					clientSavingsAccounts.add(clientAccounts.get(i));
+				if (clientAccounts.get(i).getAccountType().equals("savings")) {
+					clientSavingsAccounts.add(client.getAccounts().get(i));
 				}
 			}
 			savingsHighestAccount = client.findHighestInterestRate(clientSavingsAccounts);
-			outputMessage2 = "The highest savings account interest rate is " + savingsHighestAccount.getInterestRate() + ". You should transfer funds to the savings account with this interest rate.";
 			clientSavingsAccounts.remove(savingsHighestAccount);
 			
 			for (int i = 0; i < clientSavingsAccounts.size(); i++) {
 				int withdrawAccountNumber = clientSavingsAccounts.get(i).getAccountNumber();
 				client.transferMoney(withdrawAccountNumber, savingsHighestAccount.getAccountNumber(), clientSavingsAccounts.get(i).getBalance());
 				client.deleteAccount(withdrawAccountNumber);
+				accountConsolidated = true;
 			}
-			accountConsolidated = true;
 		}
-		
-		System.out.print(outputMessage1);
-		System.out.print(outputMessage2);
 		return accountConsolidated;
 	}
 	
@@ -86,13 +68,13 @@ public class FinancialAdvisor {
 	 * @param client
 	 * @return client's optimal average rate of return
 	 */
-	public double optimalRiskByAgeBracket(Client client) {
+	public String optimalRiskByAgeBracket(Client client) {
 		double averageRateOfReturn = 0.0;
 		double currentClientARR = client.calculateAverageRateOfReturn();
 		String compareOptimalAndClientARR = "";
 		
 		if (client.getAge() < 18) {
-			return averageRateOfReturn;
+			return ("Ask your mom.");
 		}
 		else if (client.getAge() >= 18 && client.getAge() < 30) {
 			if (currentClientARR >= 16 && currentClientARR < 20) {
@@ -147,7 +129,7 @@ public class FinancialAdvisor {
 		
 		System.out.print("Your current ARR is: " + currentClientARR + "%, which is " + compareOptimalAndClientARR + " the optimal ARR of " + averageRateOfReturn + "% for your age bracket.");
 		
-		return averageRateOfReturn;
+		return ("Your current ARR is: " + currentClientARR + "%, which is " + compareOptimalAndClientARR + " the optimal ARR of " + averageRateOfReturn + "% for your age bracket.");
 	}
 	
 	/**
@@ -155,26 +137,33 @@ public class FinancialAdvisor {
 	 * @param client
 	 * @return boolean if task is done or not
 	 */	
-	public boolean recommendHigherYieldAccounts(Client client) {
-		boolean recommendedAccount = false;
+	public String recommendHigherYieldAccounts(Client client) {
 		List<Account> clientAccounts = client.getAccounts();
+		String recommendation = "";
 		
-		for (int i = 0; i < clientAccounts.size(); i++) {
-			if (clientAccounts.get(i).getAccountType() == "checkings") {
-				if (clientAccounts.get(i).getInterestRate() < 0.2) {
-					System.out.print("Consider opening a Capital One 360 Checking account for a higher yield of 0.20% APY");
-					recommendedAccount = true;
+		for (int i = 0; i < client.getAccounts().size(); i++) {
+			if (client.getAccounts().get(i).getAccountType().equals("checkings")) {
+				if (client.getAccounts().get(i).getInterestRate() < 0.2) {
+					recommendation = recommendation + ("Recommendation for Account #" + client.getAccounts().get(i).getAccountNumber() + ": Consider opening a Capital One 360 Checking account for a higher yield of 0.20% APY. \n");
+				}
+				else {
+					recommendation = recommendation + ("Recommendation for Account #" + clientAccounts.get(i).getAccountNumber() + ": No higher yield recommendation. \n");
 				}
 			}
 			
-			else if (clientAccounts.get(i).getAccountType() == "savings") {
+			else if (clientAccounts.get(i).getAccountType().equals("savings")) {
 				if (clientAccounts.get(i).getInterestRate() < 1.5) {
-					System.out.print("Consider opening a Capital One 360 Performance Savings account for a higher yield of 1.50% APY");
-					recommendedAccount = true;
+					recommendation = recommendation + ("Recommendation for Account #" + client.getAccounts().get(i).getAccountNumber() + ": Consider opening a Capital One 360 Performance Savings account for a higher yield of 1.50% APY. \n");
 				}
-			}	
+				else {
+					recommendation = recommendation + ("Recommendation for Account #" + clientAccounts.get(i).getAccountNumber() + ": No higher yield recommendation. \n");
+				}
+			}
+			else {
+				recommendation = recommendation + ("Recommendation for Account #" + clientAccounts.get(i).getAccountNumber() + ": No higher yield recommendation. \n");
+			}
+			
 		}
-		
-		return recommendedAccount;
+		return recommendation;
 	}
 }

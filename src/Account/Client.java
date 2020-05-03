@@ -93,6 +93,7 @@ public class Client {
 			return true;
 		}
 		return false;
+
 	}
 
 	public boolean transferMoney(int accountWithdrawNumber, int accountDepositNumber, double amount) {
@@ -152,11 +153,10 @@ public class Client {
 			percentage = Math.round((Accounts.get(i).getBalance()/calculateTotalWealth())*10000.0)/100.0;
 			percentagesByAccount[i] = percentage;
 			System.out.print(percentage + "% of your wealth is in account # " + (i+1) + ", ");
-			percentageString  = percentageString + percentage + " % of your wealth is in account";
+			percentageString  = percentageString + percentage + " % of your wealth is in account #" + client.Accounts.get(i).getAccountNumber() + "\n";
 		}
 		return percentageString;
 	}
-
 	/**
 	 * Calculates the client's average rate of return across all accounts
 	 * @param 
@@ -182,7 +182,7 @@ public class Client {
 
 		List<Account> clientAccounts = client.getAccounts();
 		for (int i = 0; i < clientAccounts.size(); i++) {
-			if (clientAccounts.get(i).getAccountType() == accountType) {
+			if (clientAccounts.get(i).getAccountType().equals(accountType)) {
 				numberOfThisAccountType += 1;
 			}
 		}
@@ -213,14 +213,34 @@ public class Client {
 	 * @param compound (number of times per year)
 	 * @return updated totalWealth
 	 */
-	public boolean interestRateCalculator (Client client, int years, int compound) {
+	public String interestRateCalculator (Client client, int years, int compound) {
+		double totalWealthFuture = 0.0;
 		if ((years>0) && (compound>0)) {
-			double interestRate = client.getAverageRateOfReturn();
-			double interestGenerated = Math.pow(1+((interestRate*0.01)/compound), 60);
-			totalWealth = Math.round((client.getTotalWealth()*interestGenerated)*100.0)/100.0;
-			return true;
+			double interestRate = client.calculateAverageRateOfReturn();
+			double interestGenerated = Math.pow(1+((interestRate*0.01)/compound), years*compound);
+			totalWealthFuture = Math.round((client.calculateTotalWealth()*interestGenerated)*100.0)/100.0;
+			String message = "In " + years + " years you will have: $" + totalWealthFuture;
+			System.out.println("In " + years + " years you will have: $" + totalWealthFuture);
+			return message;
 		}
-		return false;
+		String x = "Enter appropriate inputs";
+		System.out.print("Enter appropriate inputs");
+		return x;
+	}
+	
+	/**
+	 * 
+	 * @param client
+	 * @param accountNumber
+	 * @return whether or not account number is a duplicate of existing account
+	 */
+	public boolean duplicateAccountNumber(Client client, int accountNumber) {
+		for (int i = 0; i <client.getAccounts().size(); i++) {
+			if (client.getAccounts().get(i).getAccountNumber() == accountNumber) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 }
