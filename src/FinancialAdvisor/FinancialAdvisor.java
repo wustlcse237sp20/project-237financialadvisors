@@ -78,7 +78,7 @@ public class FinancialAdvisor {
 		String compareOptimalAndClientARR = "";
 		
 		if (client.getAge() < 18) {
-			return ("Ask your mom.");
+			return ("You're under 18, ask your mom.");
 		}
 		else if (client.getAge() >= 18 && client.getAge() < 30) {
 			if (currentClientARR >= 16 && currentClientARR < 20) {
