@@ -26,18 +26,30 @@ public class ValidatorTests {
 	
 	
 	@Test
-	public void testValidateTransactionAmountBadAmount() {
-		String transactionAmount = "alskdjf;awiejf";
-		boolean result = Validator.validateTransactionAmount(transactionAmount);
-		assertFalse("Should have returned false because it is not a valid transaction amount", result);
+	public void testValidateDoubleInputBadDouble() {
+		String doubleInput = "999.999";
+		boolean result = Validator.validateDoubleInput(doubleInput);
+		assertFalse("Should have returned false because it is not a valid double with at most 2 decimals", result);
 	}
 	@Test
-	public void testValidateTransactionAmountGoodAmount() {
-		String transactionAmount = "999";
-		boolean result = Validator.validateTransactionAmount(transactionAmount);
-		assertTrue("Should have returned true because it is a valid transaction amount", result);
+	public void testValidateDoubleInputGoodDouble() {
+		String doubleInput = "999.99";
+		boolean result = Validator.validateDoubleInput(doubleInput);
+		assertTrue("Should have returned true because it is a valid double with at most 2 decimals", result);
 	}
 	
+	@Test
+	public void testValidateIntInputBadInt() {
+		String intInput = "999.999";
+		boolean result = Validator.validateIntInput(intInput);
+		assertFalse("Should have returned false because it is not a valid int", result);
+	}
+	@Test
+	public void testValidateIntInputGoodInt() {
+		String intInput = "999";
+		boolean result = Validator.validateIntInput(intInput);
+		assertTrue("Should have returned true because it is a valid int", result);
+	}
 	
 	@Test
 	public void testValidateAccountTypeBadAccountType() {
