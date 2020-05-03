@@ -137,6 +137,7 @@ public class Client {
 			totalWealth = totalWealth + Accounts.get(i).getBalance();
 		}
 		//System.out.println("Your total wealth is: $" + totalWealth);
+		this.totalWealth = totalWealth;
 		return totalWealth;
 	}
 
@@ -168,7 +169,8 @@ public class Client {
 			ARR = ARR + (Accounts.get(i).getInterestRate())*Accounts.get(i).getBalance();
 		}
 		ARR = Math.round((ARR/(calculateTotalWealth()))*100.0)/100.0;
-		System.out.println("Your average rate of return across all accounts is: " +  ARR);
+		//System.out.println("Your average rate of return across all accounts is: " +  ARR);
+		this.ARR = ARR;
 		return ARR;
 	}
 
@@ -216,7 +218,7 @@ public class Client {
 	public String interestRateCalculator (Client client, int years, int compound) {
 		double totalWealthFuture = 0.0;
 		if ((years>0) && (compound>0)) {
-			double interestRate = client.calculateAverageRateOfReturn();
+			double interestRate = client.getAverageRateOfReturn();
 			double interestGenerated = Math.pow(1+((interestRate*0.01)/compound), years*compound);
 			totalWealthFuture = Math.round((client.calculateTotalWealth()*interestGenerated)*100.0)/100.0;
 			String message = "In " + years + " years you will have: $" + totalWealthFuture;
@@ -227,7 +229,7 @@ public class Client {
 		System.out.print("Enter appropriate inputs");
 		return x;
 	}
-	
+
 	/**
 	 * 
 	 * @param client

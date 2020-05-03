@@ -77,6 +77,11 @@ public class ClientTests {
 		two.addAccount(y);
 		assertTrue(Account2.size() == 6);
 	}
+	
+	@Test
+	public void testDuplicateAccountNumber() {
+		assertFalse(one.duplicateAccountNumber(one, 12345678));
+	}
 
 	@Test
 	public void testDeleteAccount() {
@@ -92,8 +97,6 @@ public class ClientTests {
 	}
 
 	//deposit and withdraw tested additionally in accountTests (negative amount, overdraw, zero etc.)
-	//need to alter deposit and withdraw to be of type double, check with Sophie 
-
 	@Test
 	public void testDeposit() {
 		one.deposit(12345678, 200.0);
@@ -146,6 +149,7 @@ public class ClientTests {
 		assertFalse(one.transferMoney(12345678, 876543210, 100.0));
 	}
 
+	//output stream code from https://limzhenghong.wordpress.com/2015/03/18/junit-with-system-out-println/
 	@Test
 	public void testGenerateAccounts() {
 		//Prepare to redirect output
@@ -210,18 +214,42 @@ public class ClientTests {
 		assertTrue(one.findHighestInterestRate(one.getAccounts()) == e);
 		assertTrue(two.findHighestInterestRate(two.getAccounts()) == h);
 	}
-
+	
+	//output stream code from https://limzhenghong.wordpress.com/2015/03/18/junit-with-system-out-println/
 	@Test
 	public void testInterestRateCalculator() {
+		//Prepare to redirect output
+		ByteArrayOutputStream os = new ByteArrayOutputStream();
+		PrintStream ps = new PrintStream(os);
+		System.setOut(ps);
 		one.interestRateCalculator(one, 5, 12);
-		assertTrue(one.getTotalWealth() == 2411.76);
+		assertEquals("In 5 years you will have: $2411.76" + "\n", os.toString());
+		os.reset();
+		try {
+			os.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		ps.close();
 	}
-
+	
+	//output stream code from https://limzhenghong.wordpress.com/2015/03/18/junit-with-system-out-println/
 	@Test
 	public void testInterestRateCalculatorNegativeComponent() {
-		assertFalse(one.interestRateCalculator(one, -5, 12));
-		assertFalse(one.interestRateCalculator(one, 5, -12));
-		assertTrue(one.getTotalWealth() == 2000.0);
-
-	}
+		//Prepare to redirect output
+		ByteArrayOutputStream os = new ByteArrayOutputStream();
+		PrintStream ps = new PrintStream(os);
+		System.setOut(ps);
+		one.interestRateCalculator(one, -5, 12);
+		assertEquals("Enter appropriate inputs", os.toString());
+		os.reset();
+		try {
+			os.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		ps.close();
+	}	
 }
