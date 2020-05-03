@@ -23,6 +23,7 @@ public class FinancialAdvisor {
 		List<Account> clientSavingsAccounts = new ArrayList<Account>();
 		List<Account> clientCheckingAccounts = new ArrayList<Account>();
 
+		//iterate through accounts and stores all checkings accounts in a new arraylist
 		if (client.numberOfATypeOfAccount(client, "checkings") > 1) {
 			Account checkingsHighestAccount = new Account(null, null, 0, 0, 0);
 			for (int i = 0; i < clientAccounts.size(); i++) {
@@ -33,14 +34,16 @@ public class FinancialAdvisor {
 			checkingsHighestAccount = client.findHighestInterestRate(clientCheckingAccounts);
 			clientCheckingAccounts.remove(checkingsHighestAccount);
 			
+			//iterates through checkings accounts, finds the one with the highest interest rate,
+			//and transfers money from all other checkings accont to that account
 			for (int i = 0; i < clientCheckingAccounts.size(); i++) {
 				int withdrawAccountNumber = clientCheckingAccounts.get(i).getAccountNumber();
 				client.transferMoney(withdrawAccountNumber, checkingsHighestAccount.getAccountNumber(), clientCheckingAccounts.get(i).getBalance());
 				client.deleteAccount(withdrawAccountNumber);
 				accountConsolidated = true;
+			}
 		}
-		}
-		
+		//iterate through accounts and stores all savings accounts in a new arraylist
 		else if (client.numberOfATypeOfAccount(client, "savings") > 1) {
 			Account savingsHighestAccount = new Account(null, null, 0, 0, 0);
 			for (int i = 0; i < clientAccounts.size(); i++) {
@@ -51,7 +54,8 @@ public class FinancialAdvisor {
 			}
 			savingsHighestAccount = client.findHighestInterestRate(clientSavingsAccounts);
 			clientSavingsAccounts.remove(savingsHighestAccount);
-			
+			//iterates through savings accounts, finds the one with the highest interest rate,
+			//and transfers money from all other savings accont to that account
 			for (int i = 0; i < clientSavingsAccounts.size(); i++) {
 				int withdrawAccountNumber = clientSavingsAccounts.get(i).getAccountNumber();
 				client.transferMoney(withdrawAccountNumber, savingsHighestAccount.getAccountNumber(), clientSavingsAccounts.get(i).getBalance());

@@ -49,19 +49,19 @@ public class ClientTests {
 		one = new Client(Account1, 27);
 
 		Account2 = new ArrayList<Account>();
-		f = new Account("savings", "capitalone", 1.7, 300.0, 987654321);
+		f = new Account("savings", "capitalone", 1.7, 300.0, 87654321);
 		f.deposit(1200.0);
 		Account2.add(f);
-		g = new Account("savings", "chase", 0.2, 800.0, 987644321);
+		g = new Account("savings", "chase", 0.2, 800.0, 87644321);
 		g.deposit(2200.0);
 		Account2.add(g);
-		h = new Account("investment", "TD", 7.0, 0.0, 487654321);
+		h = new Account("investment", "TD", 7.0, 0.0, 87654321);
 		h.deposit(405.0);
 		Account2.add(h);
-		i = new Account("checkings", "citi", 0.1, 300.0, 987654321);
+		i = new Account("checkings", "citi", 0.1, 300.0, 97654321);
 		i.deposit(8097.66);
 		Account2.add(i);
-		j = new Account("savings", "ally", 2.0, 300.0, 987654321);
+		j = new Account("savings", "ally", 2.0, 300.0, 98654321);
 		j.deposit(4563.0);
 		Account2.add(j);
 		two = new Client(Account2, 55);
@@ -91,7 +91,7 @@ public class ClientTests {
 
 	@Test
 	public void testDeleteNonexistantAccount() {
-		assertFalse(one.deleteAccount(547392834));
+		assertFalse(one.deleteAccount(47392834));
 		assertTrue(Account1.size()==5); 
 		assertFalse(Account1.size()==4);
 	}
@@ -105,7 +105,7 @@ public class ClientTests {
 
 	@Test
 	public void testDepositNonexistantAccount() {
-		two.deposit(192834719, 150.0);
+		two.deposit(12834719, 150.0);
 		//make sure $150 wasn't added to any account in Client two 
 		assertFalse(f.getBalance()==1350.0);
 		assertFalse(g.getBalance()==2350.0);
@@ -122,7 +122,7 @@ public class ClientTests {
 
 	@Test
 	public void testWithdrawNonexistantAccount() {
-		two.withdraw(192834719, 150.0);
+		two.withdraw(19234719, 150.0);
 		//make sure $150 wasn't added to any account in Client two 
 		assertFalse(f.getBalance()==1050.0);
 		assertFalse(g.getBalance()==2050.0);
@@ -145,8 +145,8 @@ public class ClientTests {
 
 	@Test
 	public void testTransferMoneyNonexistantAccount() {
-		assertFalse(one.transferMoney(123456789, 87654321, 100.0));
-		assertFalse(one.transferMoney(12345678, 876543210, 100.0));
+		assertFalse(one.transferMoney(12345679, 87654321, 100.0));
+		assertFalse(one.transferMoney(12345678, 87654210, 100.0));
 	}
 
 	//output stream code from https://limzhenghong.wordpress.com/2015/03/18/junit-with-system-out-println/

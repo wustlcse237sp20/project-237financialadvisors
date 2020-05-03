@@ -41,7 +41,7 @@ public class Client {
 	}
 
 	/**
-	 * 
+	 * Delete account from arraylist of accounts
 	 * @param accountNumber
 	 * @return true if successful 
 	 */
@@ -61,9 +61,8 @@ public class Client {
 
 
 	/**
-	 * enables client to be able to transfer money between accounts
-	 * @param accountWithdrawNumber
-	 * @param accountDepositNumber
+	 * enables client to be able to deposit money
+	 * @param accountNumber
 	 * @param amount
 	 * @return true if successful 
 	 */
@@ -81,6 +80,12 @@ public class Client {
 		return false;
 	}
 
+	/**
+	 * enables client to be able to withdraw from accounts
+	 * @param accountnumber
+	 * @param amount
+	 * @return true if successful 
+	 */
 	public boolean withdraw(int accountNumber, double amount) {
 		int account = -1;
 		for (int i = 0; i<Accounts.size(); i++) {
@@ -96,6 +101,13 @@ public class Client {
 
 	}
 
+	/**
+	 * enables client to be able to transfer money between accounts
+	 * @param accountWithdrawNumber
+	 * @param accountDepositNumber
+	 * @param amount
+	 * @return true if successful 
+	 */
 	public boolean transferMoney(int accountWithdrawNumber, int accountDepositNumber, double amount) {
 		int accountWithdraw = -1;
 		int accountDeposit = -1;
@@ -169,7 +181,6 @@ public class Client {
 			ARR = ARR + (Accounts.get(i).getInterestRate())*Accounts.get(i).getBalance();
 		}
 		ARR = Math.round((ARR/(calculateTotalWealth()))*100.0)/100.0;
-		//System.out.println("Your average rate of return across all accounts is: " +  ARR);
 		this.ARR = ARR;
 		return ARR;
 	}
@@ -209,11 +220,11 @@ public class Client {
 	}
 
 	/**
-	 * 
+	 * Calculates potential future wealth based on having the current amount of money in the account for a number of years
 	 * @param client
 	 * @param years
 	 * @param compound (number of times per year)
-	 * @return updated totalWealth
+	 * @return String of updated totalWealth for future
 	 */
 	public String interestRateCalculator (Client client, int years, int compound) {
 		double totalWealthFuture = 0.0;
@@ -231,7 +242,7 @@ public class Client {
 	}
 
 	/**
-	 * 
+	 * Checks for duplicate account numbers (since account number should be unique)
 	 * @param client
 	 * @param accountNumber
 	 * @return whether or not account number is a duplicate of existing account
