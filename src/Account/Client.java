@@ -239,9 +239,6 @@ public class Client {
 			if (client.getAccounts().get(i).getAccountNumber() == accountNumber) {
 				return false;
 			}
-			else {
-				return true;
-			}
 		}
 		return true;
 	}
