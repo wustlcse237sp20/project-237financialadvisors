@@ -195,6 +195,8 @@ public class clientUserInterface {
 						double withdrawAmount = Double.parseDouble(withdrawal);	
 						client.getAccounts().get(list.getSelectedIndex()).withdraw(withdrawAmount);
 						txtrS.setText(client.calculatePercentagesByAccount(client) + "\n");
+						txtrTotalWealth.setText("Total Wealth: " + client.calculateTotalWealth());
+						txtrArr.setText("ARR: " + client.calculateAverageRateOfReturn());
 						return;
 					}
 				}
